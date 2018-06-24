@@ -12,7 +12,6 @@ exports.DBConnectMongoose = () => {
         let connectionDB = process.env.NODE_ENV === 'production'
             ? `mongodb+srv://${config.mongoAltis.username}:${config.mongoAltis.password}@cluster0-hq2ts.mongodb.net/test?retryWrites=true`
             : `mongodb://${config.db_config.host}:${config.db_config.port}/${config.db_config.name}`
-        console.log(connectionDB)
         mongoose.connect(connectionDB)
             .then(() => {
                 console.log('mongo connection created')
