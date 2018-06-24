@@ -1,0 +1,10 @@
+{
+    "db_config" : {
+      "host": "localhost",
+      "port": 27017,
+      "name": "veiaco_db"
+    },
+    "ENV": {
+      "port": 1000
+    }
+  }

@@ -1,20 +1,14 @@
-const restify = require('restify');
+const restify = require('restify')
+const logger = require('morgan')
+const routes = require('../routes/routes')
 
-const server = restify.createServer();
+const server = restify.createServer()
 
-server.use(restify.plugins.acceptParser(server.acceptable));
-server.use(restify.plugins.queryParser());
-server.use(restify.plugins.bodyParser());
+server.use(logger('dev'))
+server.use(restify.plugins.acceptParser(server.acceptable))
+server.use(restify.plugins.queryParser())
+server.use(restify.plugins.bodyParser())
 
-server.get('/', (req, res, next) => {
-    res.send('Olá')
-    next()
-})
-
-server.post('/', (req, res, next) => {
-    console.log('Chegou no post'+ req)
-    res.send(req.body)
-    next()
-})
+routes.assignRoutes(server)
 
 module.exports = server
