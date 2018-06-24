@@ -9,8 +9,8 @@ exports.DBConnectMongoose = function () {
             return db
         }
         mongoose.Promise = global.Promise
-
-        mongoose.connect('mongodb://' + config.db_config.host + ':' + config.db_config.port + '/' + config.db_config.name)
+        /* 'mongodb://' + config.db_config.host + ':' + config.db_config.port + '/' + config.db_config.name */
+        mongoose.connect('mongodb+srv://' + config.mongoAltis.username + ':' + config.mongoAltis.password + '@cluster0-hq2ts.mongodb.net/test?retryWrites=true')
             .then(() => {
                 console.log('mongo connection created')
                 resolve(db)
