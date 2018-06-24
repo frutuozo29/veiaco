@@ -4,8 +4,9 @@ const config = require('./config.json')
 
 dbTools.DBConnectMongoose()
     .then(() => {
-        server.listen(config.ENV.port, () => {
-            console.log('Running on PORT: ' + config.ENV.port)
+        var port = process.env.PORT || config.ENV.port
+        server.listen(port, () => {
+            console.log('Running on PORT: ' + port)
         })
     })
     .catch((err) => {
