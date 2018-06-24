@@ -8,3 +8,6 @@ dbTools.DBConnectMongoose()
             console.log('Running on PORT: ' + config.ENV.port)
         })
     })
+    .catch((err) => {
+        console.log(err)
+    })
