@@ -6,7 +6,7 @@ dbTools.DBConnectMongoose()
     .then(() => {
         var port = process.env.PORT || config.ENV.port
         server.listen(port, () => {
-            console.log('Running on PORT: ' + port)
+            console.log(`Running on PORT: ${port} and Environment: ${process.env.NODE_ENV}`)
         })
     })
     .catch((err) => {
