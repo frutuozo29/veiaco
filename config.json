@@ -4,10 +4,6 @@
       "port": 27017,
       "name": "veiaco_db"
     },
-    "mongoAltis": {
-      "username": "veiaco-user",
-      "password": "KwM4l9JlpjbcNtgQ"
-    },
     "ENV": {
       "port": 1000
     }

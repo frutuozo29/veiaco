@@ -10,7 +10,7 @@ exports.DBConnectMongoose = () => {
         }
         mongoose.Promise = global.Promise
         let connectionDB = process.env.NODE_ENV === 'production'
-            ? `mongodb+srv://${config.mongoAltis.username}:${config.mongoAltis.password}@cluster0-hq2ts.mongodb.net/test?retryWrites=true`
+            ? `mongodb+srv://${process.env.USER_MONGO}:${process.env.PASSWORD_MONGO}@cluster0-hq2ts.mongodb.net/test?retryWrites=true`
             : `mongodb://${config.db_config.host}:${config.db_config.port}/${config.db_config.name}`
         mongoose.connect(connectionDB)
             .then(() => {
