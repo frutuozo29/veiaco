@@ -2,4 +2,4 @@
 ID = "732127b3-98fa-4986-b238-5c05e78ea65c"
 [build]
 base = "veiaco-frontend/"
-publish = "veiaco-frontend/dist"
+publish = "veiaco-frontend/distveiaco-frontend/"
