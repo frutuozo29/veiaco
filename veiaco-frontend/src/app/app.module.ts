@@ -1,6 +1,7 @@
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { AgGridModule } from 'ag-grid-angular';
 
 import { AppComponent } from './app.component';
 import { MenuComponent } from './common/menu/menu.component';
@@ -18,7 +19,8 @@ import { DebtsComponent } from './pages/debts/debts.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    AgGridModule.withComponents([])
   ],
   providers: [],
   bootstrap: [AppComponent]

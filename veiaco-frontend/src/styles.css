@@ -4,6 +4,9 @@
   Color logo #eeff00
 
 */
+@import "~ag-grid/dist/styles/ag-grid.css";
+@import "~ag-grid/dist/styles/ag-theme-balham.css";
+
 html, body {
     margin: 0;
     height: 100%;
