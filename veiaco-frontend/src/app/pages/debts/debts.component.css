@@ -1,0 +1,8 @@
+.page {
+    background-color: white;
+    width: auto;
+}
+
+.page__header {
+    border-bottom: 1px solid;
+}
