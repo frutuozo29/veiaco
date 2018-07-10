@@ -1,0 +1,14 @@
+.menu {
+    background-color: orange;
+    border-radius: 5px;
+}
+
+.menu--item {
+    color: #eaeaeb !important;
+}
+
+.logo {
+    height: 55px;
+    cursor: pointer;
+    outline: none;
+}

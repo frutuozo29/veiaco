@@ -10,6 +10,7 @@ import { HomeComponent } from './common/home/home.component';
 import { DebtsComponent } from './pages/debts/debts.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
+import { MenuNavComponent } from './common/menu-nav/menu-nav.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { environment } from '../environments/environment';
     MenuComponent,
     FooterComponent,
     HomeComponent,
-    DebtsComponent
+    DebtsComponent,
+    MenuNavComponent
   ],
   imports: [
     BrowserModule,
