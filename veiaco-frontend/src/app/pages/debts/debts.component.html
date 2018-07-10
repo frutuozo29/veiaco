@@ -1,15 +1,23 @@
 <section>
   <div class="page">
     <div class="page__header">
-      <h1>Debt Registration</h1>
+      <h3>Debt Registration</h3>
+      <span>Register and update your debt*s here</span>
     </div>
-    <ag-grid-angular 
-        style="width: auto; height: 450px;" 
-        class="ag-theme-balham"
-        [rowData]="rowData" 
-        [columnDefs]="columnDefs"
-        >
-    </ag-grid-angular>
+    <div class="page__content">
+      <div class="page__content--buttom">
+        <button type="button" class="btn btn-light page__content__buttom--item">New</button>
+        <button type="button" class="btn btn-light page__content__buttom--item">Edit</button>
+        <button type="button" class="btn btn-light page__content__buttom--item--outline">Delete</button>
+      </div>
+      <ag-grid-angular 
+          style="width: auto; height: 450px;" 
+          class="ag-theme-balham"
+          [rowData]="rowData" 
+          [columnDefs]="columnDefs"
+          >
+      </ag-grid-angular>
+    </div>
   
   </div>
 </section>
