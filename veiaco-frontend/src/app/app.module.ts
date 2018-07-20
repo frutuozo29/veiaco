@@ -11,6 +11,8 @@ import { DebtsComponent } from './pages/debts/debts.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { MenuNavComponent } from './common/menu-nav/menu-nav.component';
+import { RepositoryBaseService } from './repository/base/repository-base.service';
+import { HttpModule } from '@angular/http';
 
 @NgModule({
   declarations: [
@@ -25,9 +27,10 @@ import { MenuNavComponent } from './common/menu-nav/menu-nav.component';
     BrowserModule,
     AppRoutingModule,
     AgGridModule.withComponents([]),
-    ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production })
+    ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production }),
+    HttpModule
   ],
-  providers: [],
+  providers: [RepositoryBaseService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

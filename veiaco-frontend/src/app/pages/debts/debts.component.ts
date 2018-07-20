@@ -1,4 +1,6 @@
+import { RepositoryBaseService } from './../../repository/base/repository-base.service';
 import { Component, OnInit } from '@angular/core';
+import { Debt } from './shared/debt';
 
 @Component({
   selector: 'app-debts',
@@ -7,21 +9,28 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DebtsComponent implements OnInit {
 
+  debts: any;
+
   columnDefs = [
-    { headerName: 'Debt description', field: 'debt' },
-    { headerName: 'Company', field: 'company' },
+    { headerName: 'Id', field: '_id' },
+    { headerName: 'Name', field: 'name' },
     { headerName: 'Value', field: 'value' }
   ];
 
-  rowData = [
-    { debt: 'Appartment', company: 'Imobil company rent', value: 35000 },
-    { debt: 'Food', company: 'Food of Month', value: 32000 },
-    { debt: 'Water', company: 'Water Accont', value: 72000 }
-  ];
+  rowData: any;
 
-  constructor() { }
+  constructor(
+    private repository: RepositoryBaseService
+  ) {
+    
+  }
 
   ngOnInit() {
+    this.repository.getAll()
+      .subscribe(data => {
+        console.log(data);
+        this.debts = data.debts;
+      })
   }
 
 }
