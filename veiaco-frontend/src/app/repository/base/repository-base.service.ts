@@ -6,7 +6,7 @@ import { map } from 'rxjs/operators';
 @Injectable()
 export class RepositoryBaseService {
 
-    url: string = "http://localhost:1000/debt";
+    url: string = "https://veiaco-api.herokuapp.com/debt";
 
     constructor(private http: Http) { }
 
