@@ -28,7 +28,6 @@ export class DebtsComponent implements OnInit {
   ngOnInit() {
     this.repository.getAll()
       .subscribe(data => {
-        console.log(data);
         this.debts = data.debts;
       })
   }
