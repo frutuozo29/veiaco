@@ -61,7 +61,7 @@ export default {
       } catch (error) {
         this.$notify({
           type: 'error',
-          text: 'Can\'t fetch debts'
+          text: 'Can\'t fetch debts!'
         });
         console.error(error);
       }
@@ -71,8 +71,11 @@ export default {
         name: "newdebt"
       });
     },
-    editDebt() {
-
+    editDebt(debt) {
+      this.$router.push({
+        name: "editdebt",
+        params: { id: debt._id }
+      })
     },
     async removeDebt(debt) {
       try {
@@ -80,7 +83,7 @@ export default {
         this.debts.splice(this.debts.indexOf(debt), 1);
         this.$notify({
           type: 'success',
-          text: 'Debt deleted'
+          text: 'Debt deleted!'
         });
       } catch (error) {
         this.$notify({

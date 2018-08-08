@@ -2,7 +2,7 @@ import Vue from "vue";
 import Router from "vue-router";
 import Home from "./views/home/Home.vue";
 import Debt from "./views/debt/Debt.vue";
-import DebtData from "./views/debt/DebtData.vue";
+import DebtForm from "./views/debt/DebtForm.vue";
 
 Vue.use(Router);
 
@@ -22,7 +22,12 @@ export default new Router({
     {
       path: "/debt/new",
       name: "newdebt",
-      component: DebtData
+      component: DebtForm
+    },
+    {
+      path: "/debt/edit/:id",
+      name: "editdebt",
+      component: DebtForm
     }
   ]
 });

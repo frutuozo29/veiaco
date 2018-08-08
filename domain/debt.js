@@ -30,10 +30,22 @@ module.exports.read = async (req, res, next) => {
     next()
 }
 
+module.exports.readById = async (req, res, next) => {
+    // Read debts
+    try {
+        const debt = await DebtModel.findById(req.params.id)
+        res.send({ debt: debt })
+    } catch (err) {
+        res.status(500)
+        res.send({ message: err })
+    }
+    next()
+}
+
 module.exports.update = async (req, res, next) => {
     // Update a existent debt
     try {
-        let query = { _id: req.body._id }
+        let query = { _id: req.params.id }
         const debt = await DebtModel.findByIdAndUpdate(query, req.body)
         res.send({ debt: debt })
     } catch (err) {
