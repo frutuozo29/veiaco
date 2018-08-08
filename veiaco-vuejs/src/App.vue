@@ -4,6 +4,7 @@
   <div class="container">
     <router-view></router-view>
   </div>
+  <notifications/>
   <FooterBar />
 </div>
 </template>
