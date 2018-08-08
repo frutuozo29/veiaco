@@ -1,11 +1,14 @@
 <template>
-    <footer class="footer">
-        <img src="../../assets/img/img_footer.png" alt="logo">
-    </footer>
+<footer class="footer">
+  <img src="../../../assets/img/img_footer.png" alt="logo">
+</footer>
 </template>
+
 <script lang="ts">
 import Vue from "vue";
-export default Vue.extend({});
+export default {
+  name: "FooterBar"
+};
 </script>
 
 <style>

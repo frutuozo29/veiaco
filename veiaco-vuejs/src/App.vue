@@ -1,26 +1,24 @@
 <template>
-  <div id="app">
-    <menu-bar></menu-bar>
-    <footer-bar></footer-bar>
+<div id="app">
+  <MenuBar />
+  <div class="container">
+    <router-view></router-view>
   </div>
+  <FooterBar />
+</div>
 </template>
 
-<script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
-import HelloWorld from './components/HelloWorld.vue';
-import MenuBar from './components/menu/MenuBar.vue';
-import FooterBar from './components/footer/FooterBar.vue';
+<script>
+import MenuBar from "./components/common/menu/MenuBar.vue";
+import FooterBar from "./components/common/footer/FooterBar.vue";
 
-@Component({
+export default {
   components: {
-    HelloWorld,
     MenuBar,
-    FooterBar,
-  },
-})
-export default class App extends Vue {}
+    FooterBar
+  }
+}
 </script>
 
 <style>
-
 </style>
