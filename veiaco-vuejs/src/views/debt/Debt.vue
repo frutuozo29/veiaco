@@ -4,15 +4,15 @@
     <!-- Header -->
     <header class="d-flex justify-content-between align-items-center rounded-top">
       <div>
-        <h2 class="title">Debts</h2>
+        <h2 class="title text-warning">Debts</h2>
       </div>
       <div>
-        <b-button class="btn-new-client" variant="outline-secondary" @click="addDebt()">
+        <b-button class="btn-new-client" variant="outline-warning" @click="addDebt()">
           <i class="fas fa-plus"></i> New Debt
         </b-button>
       </div>
     </header>
-
+    <br>
     <!-- Table -->
     <b-table class="clients-table" responsive :items="debts" :fields="fields">
       <template slot="options" slot-scope="data">
@@ -59,20 +59,35 @@ export default {
         let response = await this.$http.get('/debt');
         this.debts = response.data.debts;
       } catch (error) {
+        this.$notify({
+          type: 'error',
+          text: 'Can\'t fetch debts'
+        });
         console.error(error);
       }
     },
     addDebt() {
-      this.$notify({
-        type: 'error',
-        text: 'Can\'t fetch debts'
+      this.$router.push({
+        name: "newdebt"
       });
     },
     editDebt() {
 
     },
-    removeDebt() {
-
+    async removeDebt(debt) {
+      try {
+        await this.$http.delete('/debt', { headers: {'_id': debt._id }});
+        this.debts.splice(this.debts.indexOf(debt), 1);
+        this.$notify({
+          type: 'success',
+          text: 'Debt deleted'
+        });
+      } catch (error) {
+        this.$notify({
+          type: 'error',
+          text: 'Can\'t delete debt'
+        });
+      }
     }
   },
 }

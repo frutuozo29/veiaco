@@ -2,6 +2,7 @@
 <div id="app">
   <MenuBar />
   <div class="container">
+    <br>
     <router-view></router-view>
   </div>
   <notifications/>

@@ -2,6 +2,7 @@ import Vue from "vue";
 import Router from "vue-router";
 import Home from "./views/home/Home.vue";
 import Debt from "./views/debt/Debt.vue";
+import DebtData from "./views/debt/DebtData.vue";
 
 Vue.use(Router);
 
@@ -17,6 +18,11 @@ export default new Router({
       path: "/debts", 
       name: 'debts',
       component: Debt 
+    },
+    {
+      path: "/debt/new",
+      name: "newdebt",
+      component: DebtData
     }
   ]
 });
