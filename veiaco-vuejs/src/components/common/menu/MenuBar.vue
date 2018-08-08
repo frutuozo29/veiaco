@@ -10,10 +10,10 @@
         <b-nav-item-dropdown text="Registers" right>
           <b-dropdown-item to="/debts">Debts</b-dropdown-item>
         </b-nav-item-dropdown>
-        <b-nav-item class="menu--item">Moviments</b-nav-item>
-        <b-nav-item class="menu--item">Reports</b-nav-item>
-        <b-nav-item class="menu--item">Users</b-nav-item>
-        <b-nav-item class="menu--item">Configurations</b-nav-item>
+        <b-nav-item>Moviments</b-nav-item>
+        <b-nav-item>Reports</b-nav-item>
+        <b-nav-item>Users</b-nav-item>
+        <b-nav-item>Configurations</b-nav-item>
       </b-navbar-nav>
     </b-collapse>
   </b-navbar>

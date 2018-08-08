@@ -9,7 +9,7 @@ import "bootstrap-vue/dist/bootstrap-vue.css";
 /**
  * Constants
  */
-const API_URL = "http://localhost:1000";
+const API_URL = "https://veiaco-api.herokuapp.com";
 
 /**
  * Vue configurations
