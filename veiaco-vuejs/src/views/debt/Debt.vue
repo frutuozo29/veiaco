@@ -17,7 +17,7 @@
     </header>
     <br>
     <!-- Table -->
-    <b-table striped small responsive :items="debts" :fields="fields">
+    <b-table ref="table" striped small responsive :busy.sync="isBusy" :items="loadDebts" :fields="fields" :current-page="currentPage">
       <template slot="options" slot-scope="data">
         <div class="d-flex justify-content-end align-items-center options">
           <b-button v-b-popover.hover="'Edit debt'" class="options-btn options-edit" variant="warning" size="sm" @click="editDebt(data.item)">
@@ -29,6 +29,8 @@
         </div>
       </template>
     </b-table>
+    <b-pagination align="center" size="sm" :total-rows="debts.lenght" v-model="currentPage" :per-page="10">
+    </b-pagination>
   </b-container>
 </div>
 </template>
@@ -46,28 +48,36 @@ export default {
           sortable: true
         },
         {
+          key: 'date',
+          sortable: true
+        },
+        {
+          key: 'payed',
+          sortable: true
+        },
+        {
           key: 'options',
           label: ''
         }
       ],
       debts: [],
-      debtToDelete: {}
+      debtToDelete: {},
+      currentPage: 1,
+      isBusy: false
     }
   },
-  mounted() {
-    this.loadDebts();
-  },
+  mounted() {},
   methods: {
-    async loadDebts() {
+    async loadDebts(ctx) {
       try {
-        let response = await this.$http.get('/debt');
+        let response = await this.$http.get(`/debt?page=${ctx.currentPage || 1}`);
         this.debts = response.data.debts;
+        return this.debts;
       } catch (error) {
         this.$notify({
           type: 'error',
           text: 'Can\'t fetch debts!'
         });
-        console.error(error);
       }
     },
     addDebt() {
@@ -90,7 +100,7 @@ export default {
             '_id': debt._id
           }
         });
-        this.debts.splice(this.debts.indexOf(debt), 1);
+        this.$refs.table.refresh();
         this.$notify({
           type: 'success',
           text: 'Debt deleted!'
