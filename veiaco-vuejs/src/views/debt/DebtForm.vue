@@ -7,15 +7,27 @@
       </div>
     </header>
     <br>
+    <div v-if="errors.length > 0">
+      <b-alert show variant="danger">
+        <ul>
+          <li v-for="item of errors" :key="item">{{ item }}</li>
+        </ul>
+      </b-alert>
+    </div>
+    <br>
     <b-form>
-      <b-form-group label="Name:" label-for="nameinput">
-        <b-form-input id="nameinput" type="text" v-model="form.name" required placeholder="Enter name">
-        </b-form-input>
-      </b-form-group>
-      <b-form-group label="Value:" label-for="valueinput">
-        <b-form-input id="valueinput" type="number" v-model="form.value" required placeholder="Enter value">
-        </b-form-input>
-      </b-form-group>
+      <b-col md="6">
+        <b-form-group label="Name:" label-for="nameinput">
+          <b-form-input id="nameinput" type="text" v-model="form.name" required placeholder="Enter name">
+          </b-form-input>
+        </b-form-group>
+      </b-col>
+      <b-col md="4">
+        <b-form-group label="Value:" label-for="valueinput">
+          <b-form-input id="valueinput" type="number" v-model="form.value" required placeholder="Enter value">
+          </b-form-input>
+        </b-form-group>
+      </b-col>
       <b-button type="submit" variant="outline-primary" @click.stop.prevent="save()">Save</b-button>
       <b-button type="reset" variant="outline-danger" @click="cancel()">Cancel</b-button>
     </b-form>
@@ -38,12 +50,13 @@ export default {
         name: '',
         value: 0
       },
-      editing: false
+      editing: false,
+      errors: [],
     }
   },
   computed: {
     title() {
-      return this.editing ? 'Edit debt' : 'New Debt'
+      return this.editing ? 'Edit debt' : 'New Debt';
     }
   },
   methods: {
@@ -51,9 +64,7 @@ export default {
       try {
         let response = await this.$http.get(`/debt/${id}`);
         this.form = response.data.debt;
-        console.log(response);
       } catch (error) {
-        console.log(error)
         this.$notify({
           type: "error",
           text: "There was an error editing debt!"
@@ -63,6 +74,9 @@ export default {
     },
     async save() {
       try {
+        this.validateForm();
+        if (this.errors.length > 0)
+          return;
         let jsonData = JSON.stringify(this.form);
         if (this.editing) {
           let response = await this.$http.put(`/debt/${this.$route.params.id}`, jsonData);
@@ -94,6 +108,14 @@ export default {
     },
     cancel() {
       this.$router.go(-1);
+    },
+    validateForm() {
+      this.errors = [];
+      if (this.form.name == "")
+        this.errors.push('Enter a valid name');
+
+      if (this.form.value == "")
+        this.errors.push('Enter a valid value');
     }
   },
 }
