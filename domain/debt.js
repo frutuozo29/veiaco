@@ -1,75 +1,59 @@
 const mongoose = require("mongoose");
 const DebtModel = require("../models/debt");
 
-module.exports.create = async (req, res, next) => {
+module.exports.create = async debt => {
   // Create a new debt
   try {
     let debtModel = new DebtModel({
       _id: new mongoose.Types.ObjectId(),
-      name: req.body.name,
-      value: req.body.value
+      name: debt.name,
+      value: debt.value
     });
-    const debt = await debtModel.save();
-    res.send({ debt: debt });
+    const response = await debtModel.save();
+    return response;
   } catch (err) {
-    res.status(500);
-    res.send({ message: err });
+    throw err;
   }
-  next();
 };
 
-module.exports.read = async (req, res, next) => {
-  // Read debts
+module.exports.read = async (page, perPage) => {
   try {
-    let perPage = 10;
-    let page = req.query.page || 1;
-
     const debts = await DebtModel.find({})
       .skip(perPage * page - perPage)
-      .limit(perPage);
+      .limit(parseInt(perPage));
 
-    res.send({ debts: debts });
+    return debts;
   } catch (err) {
-    res.status(500);
-    res.send({ message: err });
+    throw err;
   }
-  next();
 };
 
-module.exports.readById = async (req, res, next) => {
-  // Read debts
+module.exports.readById = async id => {
   try {
-    const debt = await DebtModel.findById(req.params.id);
-    res.send({ debt: debt });
+    const debt = await DebtModel.findById(id);
+    return debt;
   } catch (err) {
-    res.status(500);
-    res.send({ message: err });
+    throw err;
   }
-  next();
 };
 
-module.exports.update = async (req, res, next) => {
+module.exports.update = async (id, debt) => {
   // Update a existent debt
   try {
-    let query = { _id: req.params.id };
-    const debt = await DebtModel.findByIdAndUpdate(query, req.body);
-    res.send({ debt: debt });
+    let query = { _id: id };
+    const response = await DebtModel.findByIdAndUpdate(query, debt);
+    return response;
   } catch (err) {
-    res.status(500);
-    res.send({ message: err });
+    throw err;
   }
-  next();
 };
 
-module.exports.del = async (req, res, next) => {
+module.exports.del = async id => {
   // Delete a debt
   try {
-    let query = { _id: req.headers._id };
-    const debt = await DebtModel.findByIdAndRemove(query);
-    res.send({ debt: debt });
+    let query = { _id: id };
+    return await DebtModel.findByIdAndRemove(query);
   } catch (err) {
-    res.status(500);
-    res.send({ message: err });
+    throw err;
   }
-  next();
 };

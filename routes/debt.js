@@ -1,11 +1,11 @@
-const debt = require('../domain/debt')
+const controller = require("../controllers/debt");
 
-function routes (server) {
-    server.get('/debt', debt.read)
-    server.get('/debt/:id', debt.readById)
-    server.post('/debt', debt.create)
-    server.put('/debt/:id', debt.update)
-    server.del('/debt', debt.del)
+function routes(server) {
+  server.get("/debt", controller.read);
+  server.get("/debt/:id", controller.readById);
+  server.post("/debt", controller.create);
+  server.put("/debt/:id", controller.update);
+  server.del("/debt", controller.del);
 }
 
-module.exports = routes
+module.exports = routes;

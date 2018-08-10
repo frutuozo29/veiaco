@@ -17,7 +17,7 @@
     </header>
     <br>
     <!-- Table -->
-    <b-table ref="table" striped small responsive :busy.sync="isBusy" :items="loadDebts" :fields="fields" :current-page="currentPage">
+    <b-table ref="table" striped small responsive :busy.sync="isBusy" :items="loadDebts" :fields="fields" :current-page="currentPage" :per-page="perPage">
       <template slot="options" slot-scope="data">
         <div class="d-flex justify-content-end align-items-center options">
           <b-button v-b-popover.hover="'Edit debt'" class="options-btn options-edit" variant="warning" size="sm" @click="editDebt(data.item)">
@@ -29,7 +29,7 @@
         </div>
       </template>
     </b-table>
-    <b-pagination align="center" size="sm" :total-rows="debts.lenght" v-model="currentPage" :per-page="10">
+    <b-pagination align="center" size="sm" :total-rows="debts.lenght" v-model="currentPage" :per-page="perPage">
     </b-pagination>
   </b-container>
 </div>
@@ -63,6 +63,7 @@ export default {
       debts: [],
       debtToDelete: {},
       currentPage: 1,
+      perPage: 10,
       isBusy: false
     }
   },
@@ -70,7 +71,7 @@ export default {
   methods: {
     async loadDebts(ctx) {
       try {
-        let response = await this.$http.get(`/debt?page=${ctx.currentPage || 1}`);
+        let response = await this.$http.get(`/debt?page=${ctx.currentPage}&perpage=${ctx.perPage}`);
         this.debts = response.data.debts;
         return this.debts;
       } catch (error) {

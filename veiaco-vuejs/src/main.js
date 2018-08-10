@@ -22,7 +22,9 @@ Vue.use(BootstrapVue);
 Vue.use(Notifications);
 Vue.prototype.$http = axios.create({
   baseURL: API_URL,
-  headers: { "Content-Type": "application/json" }
+  headers: {
+    "Content-Type": "application/json"
+  }
 });
 Vue.config.productionTip = false;
 
