@@ -77,13 +77,13 @@ export default {
   methods: {
     async loadDebts(ctx) {
       try {
-        let response = await this.$http.get(`/debt?page=${ctx.currentPage}&perpage=${ctx.perPage}/`);
+        let response = await this.$http.get(`/debt?page=${ctx.currentPage}&perpage=${ctx.perPage}`);
         this.debts = response.data.debts;
         return this.debts;
       } catch (error) {
         this.$notify({
           type: 'error',
-          text: 'Can\'t fetch debts!'
+          text: 'Can\'t fetch debts! ' + error
         });
       }
     },
