@@ -1,10 +1,11 @@
-const debtDomain = require("../domain/debt");
+const creditDomain = require("../domain/credit");
 
 module.exports.create = async (req, res, next) => {
   try {
-    const debt = await debtDomain.create(req.body);
-    res.send({ debt: debt });
+    const credit = await creditDomain.create(req.body);
+    res.send({ credit: credit });
   } catch (err) {
+    console.log(err);
     res.status(500);
     res.send({ message: err.message });
   }
@@ -16,8 +17,8 @@ module.exports.read = async (req, res, next) => {
     let page = req.query.page || 1;
     let perPage = req.query.perpage || 10;
 
-    const debts = await debtDomain.read(page, perPage);
-    res.send(debts);
+    const credits = await creditDomain.read(page, perPage);
+    res.send(credits);
   } catch (err) {
     res.status(500);
     res.send({ message: err.message });
@@ -26,10 +27,9 @@ module.exports.read = async (req, res, next) => {
 };
 
 module.exports.readById = async (req, res, next) => {
-  // Read debts
   try {
-    const debt = await debtDomain.readById(req.params.id);
-    res.send({ debt: debt });
+    const credit = await creditDomain.readById(req.params.id);
+    res.send({ credit: credit });
   } catch (err) {
     res.status(500);
     res.send({ message: err.message });
@@ -39,8 +39,8 @@ module.exports.readById = async (req, res, next) => {
 
 module.exports.update = async (req, res, next) => {
   try {
-    const debt = await debtDomain.update(req.params.id, req.body);
-    res.send({ debt: debt });
+    const credit = await creditDomain.update(req.params.id, req.body);
+    res.send({ credit: credit });
   } catch (err) {
     res.status(500);
     res.send({ message: err.message });
@@ -50,8 +50,8 @@ module.exports.update = async (req, res, next) => {
 
 module.exports.del = async (req, res, next) => {
   try {
-    const debt = await debtDomain.del(req.headers._id);
-    res.send({ debt: debt });
+    const credit = await creditDomain.del(req.headers._id);
+    res.send({ credit: credit });
   } catch (err) {
     res.status(500);
     res.send({ message: err.message });

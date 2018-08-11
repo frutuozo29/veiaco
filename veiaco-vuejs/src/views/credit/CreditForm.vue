@@ -34,13 +34,6 @@
           </b-form-input>
         </b-form-group>
       </b-col>
-      <b-col md="4">
-        <b-form-group>
-          <b-form-checkbox id="payedcheck" v-model="form.payed" value="true" unchecked-value="false">
-            Payed
-          </b-form-checkbox>
-        </b-form-group>
-      </b-col>
       <b-button type="submit" variant="outline-primary" @click.stop.prevent="save()">Save</b-button>
       <b-button type="reset" variant="outline-danger" @click="cancel()">Cancel</b-button>
     </b-form>
@@ -56,7 +49,7 @@ export default {
     let id = this.$route.params.id;
     if (id) {
       this.editing = true;
-      this.loadDebt(id);
+      this.loadCredit(id);
     }
   },
   data() {
@@ -64,8 +57,7 @@ export default {
       form: {
         name: '',
         value: 0,
-        date: '',
-        payed: false
+        date: ''
       },
       editing: false,
       errors: [],
@@ -73,21 +65,21 @@ export default {
   },
   computed: {
     title() {
-      return this.editing ? 'Edit debt' : 'New Debt';
+      return this.editing ? 'Edit Credit' : 'New Credit';
     }
   },
   methods: {
     formatToDateOnly(value, event) {
       return moment.utc(value).format("YYYY-MM-DD");
     },
-    async loadDebt(id) {
+    async loadCredit(id) {
       try {
-        let response = await this.$http.get(`/debt/${id}`);
-        this.form = response.data.debt;
+        let response = await this.$http.get(`/credit/${id}`);
+        this.form = response.data.credit;
       } catch (error) {
         this.$notify({
           type: "error",
-          text: "There was an error editing debt!"
+          text: "There was an error editing credit!"
         });
         this.$router.go(-1)
       }
@@ -99,16 +91,16 @@ export default {
           return;
         let jsonData = JSON.stringify(this.form);
         if (this.editing) {
-          let response = await this.$http.put(`/debt/${this.$route.params.id}`, jsonData);
+          let response = await this.$http.put(`/credit/${this.$route.params.id}`, jsonData);
           this.$notify({
             type: "success",
-            text: "Debt updated!"
+            text: "Credit updated!"
           })
         } else {
-          let response = await this.$http.post('/debt', jsonData);
+          let response = await this.$http.post('/credit', jsonData);
           this.$notify({
             type: "success",
-            text: "Debt created!"
+            text: "Credit created!"
           })
         }
         this.$router.go(-1);
@@ -116,12 +108,12 @@ export default {
         if (this.editing) {
           this.$notify({
             type: "error",
-            text: "There was an error editing debt :("
+            text: "There was an error editing credit :("
           })
         } else {
           this.$notify({
             type: "error",
-            text: "There was an error creating debt :("
+            text: "There was an error creating credit :("
           })
         }
       }

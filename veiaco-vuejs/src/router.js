@@ -5,6 +5,8 @@ import Home from "./views/home/Home.vue";
 import Login from "./views/login/Login.vue";
 import Debt from "./views/debt/Debt.vue";
 import DebtForm from "./views/debt/DebtForm.vue";
+import Credit from "./views/credit/Credit.vue";
+import CreditForm from "./views/credit/CreditForm.vue";
 
 Vue.use(Router);
 
@@ -60,6 +62,24 @@ const router = new Router({
       path: "/debt/edit/:id",
       name: "editdebt",
       component: DebtForm,
+      beforeEnter: requireAuth
+    },
+    {
+      path: "/credits",
+      name: "credits",
+      component: Credit,
+      beforeEnter: requireAuth
+    },
+    {
+      path: "/credit/new",
+      name: "newcredit",
+      component: CreditForm,
+      beforeEnter: requireAuth
+    },
+    {
+      path: "/credit/edit/:id",
+      name: "editcredit",
+      component: CreditForm,
       beforeEnter: requireAuth
     },
     {
