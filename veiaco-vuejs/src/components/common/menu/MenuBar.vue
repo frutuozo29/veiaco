@@ -14,12 +14,13 @@
         <b-nav-item>Reports</b-nav-item>
         <b-nav-item>Configurations</b-nav-item>
 
-        <b-navbar-nav class="ml-auto">
-          <b-nav-item-dropdown text="User" right>
-            <b-dropdown-item>Profile</b-dropdown-item>
-            <b-dropdown-item to="/logout">Signout</b-dropdown-item>
-          </b-nav-item-dropdown>
-        </b-navbar-nav>
+      </b-navbar-nav>
+
+      <b-navbar-nav class="ml-auto">
+        <b-nav-item-dropdown text="User" right>
+          <b-dropdown-item>Profile</b-dropdown-item>
+          <b-dropdown-item to="/logout">Signout</b-dropdown-item>
+        </b-nav-item-dropdown>
       </b-navbar-nav>
     </b-collapse>
   </b-navbar>
