@@ -1,3 +1,3 @@
 module.exports.authenticate = (user, password) => {
-  return Promise.resolve({ _id: "827eh8123hnfwienof" });
+  return Promise.resolve({ _id: "827eh8123hnfwienof", user: user, password: password });
 };

@@ -15,7 +15,7 @@ module.exports.read = async (req, res, next) => {
   try {
     let page = req.query.page || 1;
     let perPage = req.query.perpage || 10;
-    
+
     const debts = await debtDomain.read(page, perPage);
     res.send({ debts: debts });
   } catch (err) {

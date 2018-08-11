@@ -12,11 +12,11 @@ const cors = corsMiddleware({
   allowHeaders: ["*"]
 });
 
-/*server.use(
+server.use(
   rjwt(config.jwt).unless({
     path: ["/auth"]
   })
-);*/
+);
 
 server.pre(cors.preflight);
 server.use(cors.actual);

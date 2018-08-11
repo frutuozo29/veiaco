@@ -21,10 +21,10 @@
       <template slot="options" slot-scope="data">
         <div class="d-flex justify-content-end align-items-center options">
           <b-button v-b-popover.hover="'Edit debt'" class="options-btn options-edit" variant="warning" size="sm" @click="editDebt(data.item)">
-            <i class="fas fa-edit"></i>
+            <i class="fas fa-edit text-light"></i>
           </b-button>
           <b-button v-b-popover.hover="'Delete debt'" class="options-btn options-delete" variant="danger" size="sm" @click="confirmDelete(data.item)">
-            <i class="fas fa-trash-alt"></i>
+            <i class="fas fa-trash-alt text-light"></i>
           </b-button>
         </div>
       </template>
@@ -129,5 +129,9 @@ export default {
 <style scoped>
 button+button {
   margin-left: 3px;
+}
+
+.btn-new-client:hover {
+  color: white;
 }
 </style>

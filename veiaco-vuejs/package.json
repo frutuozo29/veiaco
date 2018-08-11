@@ -12,6 +12,7 @@
     "bootstrap-vue": "^2.0.0-rc.11",
     "vue": "^2.5.17",
     "vue-notification": "^1.3.12",
+    "vue-progressbar": "^0.7.5",
     "vue-router": "^3.0.1"
   },
   "devDependencies": {
