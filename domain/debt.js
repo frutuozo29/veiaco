@@ -4,7 +4,6 @@ const DebtModel = require("../models/debt");
 module.exports.create = async debt => {
   // Create a new debt
   try {
-    console.log(debt)
     let debtModel = new DebtModel({
       _id: new mongoose.Types.ObjectId(),
       name: debt.name,
@@ -24,8 +23,9 @@ module.exports.read = async (page, perPage) => {
     const debts = await DebtModel.find({})
       .skip(perPage * page - perPage)
       .limit(parseInt(perPage));
+    const count = await DebtModel.count();
 
-    return debts;
+    return { debts, count};
   } catch (err) {
     throw err;
   }

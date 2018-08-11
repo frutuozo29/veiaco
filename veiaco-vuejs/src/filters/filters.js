@@ -4,7 +4,7 @@ import numeral from "numeral";
 
 Vue.filter("formatDate", value => {
   if (value) {
-    return moment(String(value)).format("DD/MM/YYYY");
+    return moment(String(value)).locale("pt-br").format("L");
   }
 });
 

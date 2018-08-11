@@ -24,7 +24,7 @@
       </b-col>
       <b-col md="4">
         <b-form-group label="Date:" label-for="dateinput">
-          <b-form-input id="dateinput" type="date" v-model="form.date">
+          <b-form-input id="dateinput" type="date" v-model="form.date" :formatter="formatToDateOnly">
           </b-form-input>
         </b-form-group>
       </b-col>
@@ -49,6 +49,8 @@
 </template>
 
 <script>
+import moment from "moment";
+
 export default {
   beforeMount() {
     let id = this.$route.params.id;
@@ -75,6 +77,9 @@ export default {
     }
   },
   methods: {
+    formatToDateOnly(value, event) {
+      return moment(String(value)).format("YYYY-MM-DD");
+    },
     async loadDebt(id) {
       try {
         let response = await this.$http.get(`/debt/${id}`);
@@ -116,7 +121,7 @@ export default {
         } else {
           this.$notify({
             type: "error",
-            text: "There was an error creating debt :(" + error
+            text: "There was an error creating debt :("
           })
         }
       }

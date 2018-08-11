@@ -17,7 +17,7 @@
     </header>
     <br>
     <!-- Table -->
-    <b-table ref="table" striped small responsive :busy.sync="isBusy" :items="loadDebts" :fields="fields" :current-page="currentPage" :per-page="perPage">
+    <b-table ref="table" :no-provider-sorting="true" small responsive :busy.sync="isBusy" :items="loadDebts" :fields="fields" :current-page="currentPage" :per-page="perPage">
       <template slot="date" slot-scope="data">
         {{ data.item.date | formatDate }}
       </template>
@@ -35,7 +35,7 @@
         </div>
       </template>
     </b-table>
-    <b-pagination align="center" size="sm" :total-rows="debts.lenght" v-model="currentPage" :per-page="perPage">
+    <b-pagination align="center" size="sm" :total-rows="countDebts" v-model="currentPage" :per-page="perPage">
     </b-pagination>
   </b-container>
 </div>
@@ -69,16 +69,16 @@ export default {
       debtToDelete: {},
       currentPage: 1,
       perPage: 10,
-      isBusy: false
+      isBusy: false,
+      countDebts: 0
     }
-  },
-  mounted() {
   },
   methods: {
     async loadDebts(ctx) {
       try {
         let response = await this.$http.get(`/debt?page=${ctx.currentPage}&perpage=${ctx.perPage}`);
         this.debts = response.data.debts;
+        this.countDebts = response.data.count;
         return this.debts;
       } catch (error) {
         this.$notify({
