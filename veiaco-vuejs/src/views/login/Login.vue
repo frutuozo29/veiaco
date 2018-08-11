@@ -71,10 +71,8 @@ export default {
         let jsonData = JSON.stringify(this.form);
         let response = await this.$http.post("/auth", jsonData)
         auth.login(response.data);
-        console.log(response);
 
       } catch (error) {
-        console.log(error)
         this.$notify({
           type: "error",
           text: "There was an error on login :("

@@ -2,6 +2,7 @@ import Vue from "vue";
 import App from "./App.vue";
 import router from "./router";
 import auth from "./utils/auth";
+import "./filters/filters";
 import axios from "axios";
 import Notifications from "vue-notification";
 import BootstrapVue from "bootstrap-vue";

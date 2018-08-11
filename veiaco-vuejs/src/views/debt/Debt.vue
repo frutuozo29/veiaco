@@ -18,6 +18,12 @@
     <br>
     <!-- Table -->
     <b-table ref="table" striped small responsive :busy.sync="isBusy" :items="loadDebts" :fields="fields" :current-page="currentPage" :per-page="perPage">
+      <template slot="date" slot-scope="data">
+        {{ data.item.date | formatDate }}
+      </template>
+      <template slot="value" slot-scope="data">
+        {{ data.item.value | formatMoney }}
+      </template>
       <template slot="options" slot-scope="data">
         <div class="d-flex justify-content-end align-items-center options">
           <b-button v-b-popover.hover="'Edit debt'" class="options-btn options-edit" variant="warning" size="sm" @click="editDebt(data.item)">
@@ -44,11 +50,11 @@ export default {
           sortable: true
         },
         {
-          key: 'value',
+          key: 'date',
           sortable: true
         },
         {
-          key: 'date',
+          key: 'value',
           sortable: true
         },
         {
@@ -67,7 +73,8 @@ export default {
       isBusy: false
     }
   },
-  mounted() {},
+  mounted() {
+  },
   methods: {
     async loadDebts(ctx) {
       try {

@@ -4,10 +4,13 @@ const DebtModel = require("../models/debt");
 module.exports.create = async debt => {
   // Create a new debt
   try {
+    console.log(debt)
     let debtModel = new DebtModel({
       _id: new mongoose.Types.ObjectId(),
       name: debt.name,
-      value: debt.value
+      value: debt.value,
+      date: debt.date,
+      payed: debt.payed
     });
     const response = await debtModel.save();
     return response;

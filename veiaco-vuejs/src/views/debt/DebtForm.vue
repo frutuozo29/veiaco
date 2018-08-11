@@ -23,9 +23,22 @@
         </b-form-group>
       </b-col>
       <b-col md="4">
+        <b-form-group label="Date:" label-for="dateinput">
+          <b-form-input id="dateinput" type="date" v-model="form.date">
+          </b-form-input>
+        </b-form-group>
+      </b-col>
+      <b-col md="4">
         <b-form-group label="Value:" label-for="valueinput">
           <b-form-input id="valueinput" type="number" v-model="form.value" required placeholder="Enter value">
           </b-form-input>
+        </b-form-group>
+      </b-col>
+      <b-col md="4">
+        <b-form-group>
+          <b-form-checkbox id="payedcheck" v-model="form.payed" value="true" unchecked-value="false">
+            Payed
+          </b-form-checkbox>
         </b-form-group>
       </b-col>
       <b-button type="submit" variant="outline-primary" @click.stop.prevent="save()">Save</b-button>
@@ -48,7 +61,9 @@ export default {
     return {
       form: {
         name: '',
-        value: 0
+        value: 0,
+        date: '',
+        payed: false
       },
       editing: false,
       errors: [],
