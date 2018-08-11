@@ -24,7 +24,7 @@
       <template slot="value" slot-scope="data">
         {{ data.item.value | formatMoney }}
       </template>
-      <template slot="options" slot-scope="data">
+      <template slot="operations" slot-scope="data">
         <div class="d-flex justify-content-end align-items-center options">
           <b-button v-b-popover.hover="'Edit debt'" class="options-btn options-edit" variant="warning" size="sm" @click="editDebt(data.item)">
             <i class="fas fa-edit text-light"></i>
@@ -62,8 +62,7 @@ export default {
           sortable: true
         },
         {
-          key: 'options',
-          label: ''
+          key: 'operations'
         }
       ],
       debts: [],

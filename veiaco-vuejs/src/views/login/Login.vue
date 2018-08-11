@@ -103,7 +103,7 @@ export default {
 
 <style scoped>
 #login {
-  background: linear-gradient(to bottom right, orange, yellow);
+  background: linear-gradient(to bottom right, #ffc107, yellow);
   position: absolute;
   top: 0;
   bottom: 0;

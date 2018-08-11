@@ -33,18 +33,18 @@ export default {
     };
 
     this.$Progress.start();
-      this.$router.beforeEach((to, from, next) => {
-        if (to.meta.progress !== undefined) {
-          let meta = to.meta.progress;
-          this.$Progress.parseMeta(meta);
-        }
-        this.$Progress.start();
-        next();
-      });
-      
-      this.$router.afterEach((to, from) => {
-        this.$Progress.finish();
-      });
+    this.$router.beforeEach((to, from, next) => {
+      if (to.meta.progress !== undefined) {
+        let meta = to.meta.progress;
+        this.$Progress.parseMeta(meta);
+      }
+      this.$Progress.start();
+      next();
+    });
+
+    this.$router.afterEach((to, from) => {
+      this.$Progress.finish();
+    });
   },
   data() {
     return {
@@ -57,6 +57,10 @@ export default {
 <style>
 html,
 body {
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif !important;
+  font-size: 1rem !important;
+  font-weight: 400 !important;
+  line-height: 1.5 !important;
   margin: 0;
   /*background-color: #eaeaeb !important;*/
 }
