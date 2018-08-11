@@ -116,7 +116,7 @@ export default {
         } else {
           this.$notify({
             type: "error",
-            text: "There was an error creating debt :("
+            text: "There was an error creating debt :(" + error
           })
         }
       }

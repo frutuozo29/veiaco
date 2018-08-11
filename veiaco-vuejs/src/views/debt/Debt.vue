@@ -83,7 +83,7 @@ export default {
       } catch (error) {
         this.$notify({
           type: 'error',
-          text: 'Can\'t fetch debts! ' + error
+          text: 'Can\'t fetch debts!'
         });
       }
     },
