@@ -1,20 +1,11 @@
+const dateUtils = require("../tools/date_utils");
 const DebtModel = require("../models/debt");
 const CreditModel = require("../models/credit");
 
 module.exports.getData = async filters => {
-  //{ month: 6, year: 2018}
   try {
-    let initialDate = new Date(filters.year, filters.month, 1)
-      .toISOString()
-      .split("T")[0];
-
-    let finalDate = new Date(
-      filters.year,
-      filters.month,
-      daysOfMonth(filters.month, filters.year)
-    )
-      .toISOString()
-      .split("T")[0];
+    let initialDate = dateUtils.initialDateOfMonth(filters.month, filters.year);
+    let finalDate = dateUtils.finalDateOfMonth(filters.month, filters.year);
 
     let query = {
       date: { $gte: initialDate, $lte: finalDate }
@@ -42,8 +33,3 @@ module.exports.getData = async filters => {
     throw error;
   }
 };
-
-function daysOfMonth(month, year) {
-  let date = new Date(year, month, 0);
-  return date.getDate();
-}

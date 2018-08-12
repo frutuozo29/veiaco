@@ -1,7 +1,7 @@
 <template>
 <div class="container">
   <b-navbar id="menubar" toggleable="lg" type="dark" variant="info">
-    <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
+    <b-navbar-toggle class="text-light" target="nav_collapse"></b-navbar-toggle>
     <b-navbar-brand>
       <router-link to="/"><img class="logo" src="../../../assets/img/logo.png" alt="logo"></router-link>
     </b-navbar-brand>
