@@ -11,5 +11,7 @@ Vue.filter("formatDate", value => {
 Vue.filter("formatMoney", value => {
   if (value) {
     return numeral(value).format("$0,0.00");
+  } else {
+    return numeral(0).format("$0,0.00")
   }
 });

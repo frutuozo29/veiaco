@@ -8,8 +8,8 @@
     <b-collapse is-nav id="nav_collapse">
       <b-navbar-nav>
         <b-nav-item-dropdown text="Registers" right>
-          <b-dropdown-item to="/debts">Debts</b-dropdown-item>
           <b-dropdown-item to="/credits">Credits</b-dropdown-item>
+          <b-dropdown-item to="/debts">Debts</b-dropdown-item>
         </b-nav-item-dropdown>
         <b-nav-item>Moviments</b-nav-item>
         <b-nav-item>Reports</b-nav-item>

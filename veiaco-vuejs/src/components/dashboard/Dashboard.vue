@@ -1,6 +1,6 @@
 <template>
 <div>
-  <h4 class="dashboard-text">DASHBOARD</h4>
+  <h5 class="dashboard-text">DASHBOARD</h5>
   <br>
   <div>
     <b-card-group deck class="mb-3">
@@ -12,7 +12,7 @@
           <b-col>
             <div>
               <h6>Credits</h6>
-              <h3>$5,344</h3>
+              <h5>{{ dataDashboard.totalCredits | formatMoney }}</h5>
             </div>
           </b-col>
         </b-row>
@@ -29,13 +29,13 @@
           <b-col>
             <div>
               <h6>Debts</h6>
-              <h3>$2,725</h3>
+              <h5>{{ dataDashboard.totalDebts | formatMoney }}</h5>
             </div>
           </b-col>
         </b-row>
         <div slot="footer">
           <i class="fas fa-sync iconCardFooter"></i>
-          <small class="text-muted"> Last updated 3 mins ago</small>
+          <small class="text-muted"> Updated now</small>
         </div>
       </b-card>
       <b-card class="text-center" footer-bg-variant="transparent">
@@ -46,7 +46,7 @@
           <b-col>
             <div>
               <h6>Balance</h6>
-              <h3>$2,619</h3>
+              <h5>{{ dataDashboard.totalCredits - dataDashboard.totalDebts | formatMoney }}</h5>
             </div>
           </b-col>
         </b-row>
@@ -62,24 +62,53 @@
 
 <script>
 export default {
-  name: 'dashboard'
-}
+  name: "dashboard",
+  data() {
+    return {
+      dataDashboard: {
+        totalDebts: 0,
+        totalCredits: 0
+      }
+    };
+  },
+  mounted() {
+    this.getDataDashboard();
+  },
+  methods: {
+    async getDataDashboard() {
+      try {
+        const filters = {
+          month: new Date().getMonth(),
+          year: new Date().getFullYear()
+        };
+        const jsonData = JSON.stringify(filters);
+        const response = await this.$http.post("/dashboard", jsonData);
+        this.dataDashboard = response.data;
+      } catch (error) {
+        this.$notify({
+          type: "error",
+          text: "Can't fecth data dashboard :("
+        });
+      }
+    }
+  }
+};
 </script>
 
 <style scoped>
 .iconCardBalance {
   color: blue;
-  font-size: 50px;
+  font-size: 40px;
 }
 
 .iconCardCredit {
   color: green;
-  font-size: 50px;
+  font-size: 40px;
 }
 
 .iconCardDebt {
   color: red;
-  font-size: 50px;
+  font-size: 40px;
 }
 
 .iconCardFooter {
