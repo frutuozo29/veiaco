@@ -7,6 +7,7 @@
     <MenuBar />
     <div class="container">
       <br>
+      <Breadcrumb />
       <router-view></router-view>
     </div>
     <FooterBar />
@@ -20,12 +21,14 @@
 <script>
 import MenuBar from "./components/common/menu/MenuBar.vue";
 import FooterBar from "./components/common/footer/FooterBar.vue";
+import Breadcrumb from "./components/common/breadcrumb/Breadcrumb.vue";
 import auth from "./utils/auth";
 
 export default {
   components: {
     MenuBar,
-    FooterBar
+    FooterBar,
+    Breadcrumb
   },
   created() {
     auth.onChange = loggedIn => {
@@ -57,7 +60,7 @@ export default {
 <style>
 html,
 body {
-  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif !important;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif !important;
   font-size: 1rem !important;
   font-weight: 400 !important;
   line-height: 1.5 !important;

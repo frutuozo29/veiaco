@@ -7,9 +7,6 @@
     <!-- Header -->
     <header class="d-flex justify-content-between align-items-center rounded-top">
       <div>
-        <h2 class="title text-warning">Debts</h2>
-      </div>
-      <div>
         <b-button class="btn-new-client" variant="outline-warning" @click="addDebt()">
           <i class="fas fa-plus"></i> New Debt
         </b-button>
@@ -129,7 +126,7 @@ export default {
 </script>
 
 <style scoped>
-button+button {
+button + button {
   margin-left: 3px;
 }
 

@@ -38,7 +38,15 @@ const router = new Router({
       path: '/',
       name: 'home',
       component: Home,
-      beforeEnter: requireAuth
+      beforeEnter: requireAuth,
+      meta: {
+        breadcrumb: [
+          {
+            text: 'Dashboard',
+            to: { name: 'home' }
+          }
+        ]
+      }
     },
     {
       path: '/login',
@@ -50,37 +58,125 @@ const router = new Router({
       path: '/debts',
       name: 'debts',
       component: Debt,
-      beforeEnter: requireAuth
+      beforeEnter: requireAuth,
+      meta: {
+        breadcrumb: [
+          {
+            text: 'Dashboard',
+            to: { name: 'home' }
+          },
+          {
+            text: 'Debts',
+            to: { name: 'debts' }
+          }
+        ]
+      }
     },
     {
       path: '/debt/new',
       name: 'newdebt',
       component: DebtForm,
-      beforeEnter: requireAuth
+      beforeEnter: requireAuth,
+      meta: {
+        breadcrumb: [
+          {
+            text: 'Dashboard',
+            to: { name: 'home' }
+          },
+          {
+            text: 'Debts',
+            to: { name: 'debts' }
+          },
+          {
+            text: 'New Debt',
+            to: { name: 'newdebt' }
+          }
+        ]
+      }
     },
     {
       path: '/debt/edit/:id',
       name: 'editdebt',
       component: DebtForm,
-      beforeEnter: requireAuth
+      beforeEnter: requireAuth,
+      meta: {
+        breadcrumb: [
+          {
+            text: 'Dashboard',
+            to: { name: 'home' }
+          },
+          {
+            text: 'Debts',
+            to: { name: 'debts' }
+          },
+          {
+            text: 'Edit Debt',
+            to: { name: 'editdebt' }
+          }
+        ]
+      }
     },
     {
       path: '/credits',
       name: 'credits',
       component: Credit,
-      beforeEnter: requireAuth
+      beforeEnter: requireAuth,
+      meta: {
+        breadcrumb: [
+          {
+            text: 'Dashboard',
+            to: { name: 'home' }
+          },
+          {
+            text: 'Credits',
+            to: { name: 'credits' }
+          }
+        ]
+      }
     },
     {
-      path: '/credit/new',
+      path: '/credits/new',
       name: 'newcredit',
       component: CreditForm,
-      beforeEnter: requireAuth
+      beforeEnter: requireAuth,
+      meta: {
+        breadcrumb: [
+          {
+            text: 'Dashboard',
+            to: { name: 'home' }
+          },
+          {
+            text: 'Credits',
+            to: { name: 'credits' }
+          },
+          {
+            text: 'New Credit',
+            to: { name: 'newcredit' }
+          }
+        ]
+      }
     },
     {
-      path: '/credit/edit/:id',
+      path: '/credits/edit/:id',
       name: 'editcredit',
       component: CreditForm,
-      beforeEnter: requireAuth
+      beforeEnter: requireAuth,
+      meta: {
+        breadcrumb: [
+          {
+            text: 'Dashboard',
+            to: { name: 'home' }
+          },
+          {
+            text: 'Credits',
+            to: { name: 'credits' }
+          },
+          {
+            text: 'Edit Credit',
+            to: { name: 'editcredit' }
+          }
+        ]
+      }
     },
     {
       path: '/logout',

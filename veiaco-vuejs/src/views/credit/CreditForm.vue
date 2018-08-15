@@ -1,12 +1,6 @@
 <template>
 <div>
   <b-container>
-    <header class="d-flex justify-content-between align-items-center rounded-top">
-      <div>
-        <h2 class="title text-warning">{{ title }}</h2>
-      </div>
-    </header>
-    <br>
     <div v-if="errors.length > 0">
       <b-alert show variant="danger">
         <ul>
@@ -134,7 +128,7 @@ export default {
 </script>
 
 <style scoped>
-button+button {
+button + button {
   margin-left: 3px;
 }
 </style>

@@ -7,9 +7,6 @@
     <!-- Header -->
     <header class="d-flex justify-content-between align-items-center rounded-top">
       <div>
-        <h2 class="title text-warning">Credits</h2>
-      </div>
-      <div>
         <b-button class="btn-new-client" variant="outline-warning" @click="addCredit()">
           <i class="fas fa-plus"></i> New Credit
         </b-button>

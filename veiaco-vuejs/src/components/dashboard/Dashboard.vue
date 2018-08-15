@@ -1,7 +1,5 @@
 <template>
 <div>
-  <h5 class="dashboard-text">DASHBOARD</h5>
-  <br>
   <div>
     <b-card-group deck class="mb-3">
       <b-card class="text-center" footer-bg-variant="transparent">
