@@ -98,11 +98,7 @@ export default {
     },
     async removeCredit(credit) {
       try {
-        await this.$http.delete('/credit', {
-          headers: {
-            '_id': credit._id
-          }
-        });
+        await this.$http.delete(`/credit/${credit._id}`);
         this.$refs.table.refresh();
         this.$notify({
           type: 'success',
@@ -129,7 +125,7 @@ export default {
 </script>
 
 <style scoped>
-button+button {
+button + button {
   margin-left: 3px;
 }
 

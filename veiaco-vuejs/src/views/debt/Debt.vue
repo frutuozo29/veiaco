@@ -102,11 +102,7 @@ export default {
     },
     async removeDebt(debt) {
       try {
-        await this.$http.delete('/debt', {
-          headers: {
-            '_id': debt._id
-          }
-        });
+        await this.$http.delete(`/debt/${debt._id}`);
         this.$refs.table.refresh();
         this.$notify({
           type: 'success',
