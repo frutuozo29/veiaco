@@ -35,7 +35,8 @@ div > ol {
 
 div > ol > li > a,
 span {
-  color: yellow !important;
+  color: white !important;
   font-size: 18px;
+  text-decoration: none;
 }
 </style>

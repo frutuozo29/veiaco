@@ -112,8 +112,4 @@ export default {
 .iconCardFooter {
   color: #a9a9a9;
 }
-
-.dashboard-text {
-  color: #a9a9a9;
-}
 </style>
