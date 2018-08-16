@@ -14,7 +14,7 @@
     </header>
     <br>
     <!-- Table -->
-    <b-table ref="table" :no-provider-sorting="true" small responsive :busy.sync="isBusy" :items="loadDebts" :fields="fields" :current-page="currentPage" :per-page="perPage">
+    <b-table ref="table" small fixed responsive :items="allDebts" :fields="fields" :per-page="pagination.perPage">
       <template slot="date" slot-scope="data">
         {{ data.item.date | formatDate }}
       </template>
@@ -32,58 +32,51 @@
         </div>
       </template>
     </b-table>
-    <b-pagination align="center" size="sm" :total-rows="countDebts" v-model="currentPage" :per-page="perPage">
+    <b-pagination align="center" size="sm" :total-rows="pagination.totalRows" @change="changePage" v-model="pagination.page" :per-page="pagination.perPage" :limit="3">
     </b-pagination>
   </b-container>
 </div>
 </template>
 
 <script>
+import {
+  mapGetters,
+  mapState,
+  mapActions
+} from 'vuex'
+
+import * as types from '../../store/modules/debt/mutation-types'
 export default {
   data() {
     return {
-      fields: [{
-          key: 'name',
-          sortable: true
-        },
-        {
-          key: 'date',
-          sortable: true
-        },
-        {
-          key: 'value',
-          sortable: true
-        },
-        {
-          key: 'payed',
-          sortable: true
-        },
-        {
-          key: 'operations'
-        }
-      ],
-      debts: [],
       debtToDelete: {},
-      currentPage: 1,
-      perPage: 10,
-      isBusy: false,
-      countDebts: 0
+      isBusy: false
     }
   },
+  created() {
+    console.log('criou')
+  },
+  mounted() {
+    const page = this.pagination.page
+    const limit = this.pagination.perPage
+    this.findAllDebts({
+      page,
+      limit
+    })
+  },
+  computed: {
+    ...mapGetters('debt', [
+      'allDebts'
+    ]),
+    ...mapState('debt', [
+      'fields',
+      'pagination'
+    ])
+  },
   methods: {
-    async loadDebts(ctx) {
-      try {
-        let response = await this.$http.get(`/debt?page=${ctx.currentPage}&perpage=${ctx.perPage}`);
-        this.debts = response.data.debts;
-        this.countDebts = response.data.count;
-        return this.debts;
-      } catch (error) {
-        this.$notify({
-          type: 'error',
-          text: 'Can\'t fetch debts!'
-        });
-      }
-    },
+    ...mapActions('debt', [
+      'findAllDebts'
+    ]),
     addDebt() {
       this.$router.push({
         name: "newdebt"
@@ -96,6 +89,14 @@ export default {
           id: debt._id
         }
       })
+    },
+    changePage(page) {
+      const limit = this.pagination.perPage
+      this.findAllDebts({
+        page,
+        limit
+      })
+      this.$refs.table.refresh()
     },
     async removeDebt(debt) {
       try {
@@ -121,7 +122,7 @@ export default {
       this.debtToDelete = debt;
       this.$refs.modalConfirmDelete.show();
     }
-  },
+  }
 }
 </script>
 
