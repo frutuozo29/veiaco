@@ -22,7 +22,7 @@ export default {
   ],
   pagination: {
     page: 1,
-    perPage: 5,
+    perPage: 10,
     totalRows: 0
   },
   debts: [],

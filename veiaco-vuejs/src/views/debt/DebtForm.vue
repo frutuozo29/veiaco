@@ -43,14 +43,17 @@
 </template>
 
 <script>
-import moment from "moment";
+import moment from 'moment';
+import {
+  mapActions
+} from 'vuex';
 
 export default {
   beforeMount() {
     let id = this.$route.params.id;
     if (id) {
-      this.editing = true;
-      this.loadDebt(id);
+      this.editing = true
+      this.loadDebt(id)
     }
   },
   data() {
@@ -71,8 +74,12 @@ export default {
     }
   },
   methods: {
+    ...mapActions('debt', [
+      'createDebt',
+      'updateDebt'
+    ]),
     formatToDateOnly(value, event) {
-      return moment.utc(value).format("YYYY-MM-DD");
+      return moment.utc(value).format('YYYY-MM-DD');
     },
     async loadDebt(id) {
       try {
@@ -80,8 +87,8 @@ export default {
         this.form = response.data.debt;
       } catch (error) {
         this.$notify({
-          type: "error",
-          text: "There was an error editing debt!"
+          type: 'error',
+          text: 'There was an error editing debt!'
         });
         this.$router.go(-1)
       }
@@ -91,31 +98,30 @@ export default {
         this.validateForm();
         if (this.errors.length > 0)
           return;
-        let jsonData = JSON.stringify(this.form);
         if (this.editing) {
-          let response = await this.$http.put(`/debt/${this.$route.params.id}`, jsonData);
+          this.updateDebt({ id: this.$route.params.id, debt: this.form })
           this.$notify({
-            type: "success",
-            text: "Debt updated!"
+            type: 'success',
+            text: 'Debt updated!'
           })
         } else {
-          let response = await this.$http.post('/debt', jsonData);
+          this.createDebt(this.form)
           this.$notify({
-            type: "success",
-            text: "Debt created!"
+            type: 'success',
+            text: 'Debt created!'
           })
         }
         this.$router.go(-1);
       } catch (error) {
         if (this.editing) {
           this.$notify({
-            type: "error",
-            text: "There was an error editing debt :("
+            type: 'error',
+            text: 'There was an error editing debt :('
           })
         } else {
           this.$notify({
-            type: "error",
-            text: "There was an error creating debt :("
+            type: 'error',
+            text: 'There was an error creating debt :('
           })
         }
       }
@@ -125,10 +131,10 @@ export default {
     },
     validateForm() {
       this.errors = [];
-      if (this.form.name == "")
+      if (this.form.name == '')
         this.errors.push('Enter a valid name');
 
-      if (this.form.value == "")
+      if (this.form.value == '')
         this.errors.push('Enter a valid value');
     }
   },

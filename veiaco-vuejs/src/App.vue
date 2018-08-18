@@ -49,6 +49,9 @@ export default {
       this.$Progress.finish();
     });
   },
+  mounted() {
+    this.$Progress.finish();
+  },
   data() {
     return {
       loggedIn: auth.loggedIn()

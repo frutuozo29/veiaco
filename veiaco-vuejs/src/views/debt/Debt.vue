@@ -54,7 +54,6 @@ export default {
     }
   },
   created() {
-    console.log('criou')
   },
   mounted() {
     const page = this.pagination.page
@@ -75,7 +74,8 @@ export default {
   },
   methods: {
     ...mapActions('debt', [
-      'findAllDebts'
+      'findAllDebts',
+      'deleteDebt'
     ]),
     addDebt() {
       this.$router.push({
@@ -96,12 +96,10 @@ export default {
         page,
         limit
       })
-      this.$refs.table.refresh()
     },
     async removeDebt(debt) {
       try {
-        await this.$http.delete(`/debt/${debt._id}`);
-        this.$refs.table.refresh();
+        this.deleteDebt(debt)
         this.$notify({
           type: 'success',
           text: 'Debt deleted!'
