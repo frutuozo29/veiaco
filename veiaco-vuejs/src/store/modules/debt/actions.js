@@ -1,4 +1,5 @@
 import api from '../../../utils/backend-api'
+import { sendSuccessMessage, sendErrorMessage } from '../../../utils/notify'
 import * as types from './mutation-types'
 
 export default {
@@ -11,22 +12,25 @@ export default {
     } catch (error) {
       commit(types.SET_ALL_DEBTS, [])
       commit(types.SET_PAGINATION, { page: page, totalRows: 0 })
-      throw error
+      sendErrorMessage("Can't fetch debts :(")
     }
   },
   async createDebt ({ commit }, payload) {
     try {
       const jsonData = JSON.stringify(payload)
       await api.post('/debt', jsonData)
+      sendSuccessMessage('Debt created!')
     } catch (error) {
-      throw error
+      sendErrorMessage('There was an error creating debt :(')
     }
   },
   async updateDebt ({ commit }, payload) {
     try {
       const jsonData = JSON.stringify(payload.debt)
       await this.$http.put(`/debt/${payload.id}`, jsonData)
+      sendSuccessMessage('Debt updated!')
     } catch (error) {
+      sendErrorMessage('There was an error editing debt :(')
       throw error
     }
   },
@@ -37,8 +41,9 @@ export default {
         page: state.pagination.page,
         limit: state.pagination.perPage
       })
+      sendSuccessMessage('Debt deleted!')
     } catch (error) {
-      throw error
+      sendErrorMessage("Can't delete debt")
     }
   }
 }

@@ -8,6 +8,7 @@ import Notifications from 'vue-notification'
 import BootstrapVue from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
+import 'awesome-notifications/dist/style.css'
 
 import VueProgressBar from 'vue-progressbar'
 

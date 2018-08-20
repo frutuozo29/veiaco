@@ -93,38 +93,19 @@ export default {
         this.$router.go(-1)
       }
     },
-    async save() {
-      try {
-        this.validateForm();
-        if (this.errors.length > 0)
-          return;
-        if (this.editing) {
-          this.updateDebt({ id: this.$route.params.id, debt: this.form })
-          this.$notify({
-            type: 'success',
-            text: 'Debt updated!'
-          })
-        } else {
-          this.createDebt(this.form)
-          this.$notify({
-            type: 'success',
-            text: 'Debt created!'
-          })
-        }
-        this.$router.go(-1);
-      } catch (error) {
-        if (this.editing) {
-          this.$notify({
-            type: 'error',
-            text: 'There was an error editing debt :('
-          })
-        } else {
-          this.$notify({
-            type: 'error',
-            text: 'There was an error creating debt :('
-          })
-        }
+    save() {
+      this.validateForm();
+      if (this.errors.length > 0)
+        return;
+      if (this.editing) {
+        this.updateDebt({
+          id: this.$route.params.id,
+          debt: this.form
+        })
+      } else {
+        this.createDebt(this.form)
       }
+      this.$router.go(-1);
     },
     cancel() {
       this.$router.go(-1);

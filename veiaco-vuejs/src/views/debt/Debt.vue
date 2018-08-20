@@ -49,11 +49,8 @@ import * as types from '../../store/modules/debt/mutation-types'
 export default {
   data() {
     return {
-      debtToDelete: {},
-      isBusy: false
+      debtToDelete: {}
     }
-  },
-  created() {
   },
   mounted() {
     const page = this.pagination.page
@@ -97,23 +94,9 @@ export default {
         limit
       })
     },
-    async removeDebt(debt) {
-      try {
-        this.deleteDebt(debt)
-        this.$notify({
-          type: 'success',
-          text: 'Debt deleted!'
-        });
-      } catch (error) {
-        this.$notify({
-          type: 'error',
-          text: 'Can\'t delete debt'
-        });
-      }
-    },
     modalOk() {
       if (this.debtToDelete)
-        this.removeDebt(this.debtToDelete);
+        this.deleteDebt(this.debtToDelete);
       this.debtToDelete = undefined;
     },
     confirmDelete(debt) {
