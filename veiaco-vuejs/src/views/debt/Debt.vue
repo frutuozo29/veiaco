@@ -22,7 +22,7 @@
         {{ data.item.value | formatMoney }}
       </template>
       <template slot="operations" slot-scope="data">
-        <div class="d-flex justify-content-end align-items-center options">
+        <div class="d-flex justify-content-center align-items-center options">
           <b-button v-b-popover.hover="'Edit debt'" class="options-btn options-edit" variant="warning" size="sm" @click="editDebt(data.item)">
             <i class="fas fa-edit text-light"></i>
           </b-button>
@@ -32,7 +32,7 @@
         </div>
       </template>
     </b-table>
-    <b-pagination align="center" size="sm" :total-rows="pagination.totalRows" @change="changePage" v-model="pagination.page" :per-page="pagination.perPage" :limit="3">
+    <b-pagination align="center" size="sm" :total-rows="pagination.totalRows" @change="changePage" v-model="pagination.page" :per-page="pagination.perPage">
     </b-pagination>
   </b-container>
 </div>

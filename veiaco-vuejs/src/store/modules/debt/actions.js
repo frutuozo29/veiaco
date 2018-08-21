@@ -27,11 +27,10 @@ export default {
   async updateDebt ({ commit }, payload) {
     try {
       const jsonData = JSON.stringify(payload.debt)
-      await this.$http.put(`/debt/${payload.id}`, jsonData)
+      await api.put(`/debt/${payload.id}`, jsonData)
       sendSuccessMessage('Debt updated!')
     } catch (error) {
       sendErrorMessage('There was an error editing debt :(')
-      throw error
     }
   },
   async deleteDebt ({ state, dispatch }, payload) {

@@ -14,7 +14,7 @@
     </header>
     <br>
     <!-- Table -->
-    <b-table ref="table" :no-provider-sorting="true" small responsive :busy.sync="isBusy" :items="loadCredits" :fields="fields" :current-page="currentPage" :per-page="perPage">
+    <b-table ref="table" small fixed responsive :items="allCredits" :fields="fields" :per-page="pagination.perPage">
       <template slot="date" slot-scope="data">
         {{ data.item.date | formatDate }}
       </template>
@@ -22,7 +22,7 @@
         {{ data.item.value | formatMoney }}
       </template>
       <template slot="operations" slot-scope="data">
-        <div class="d-flex justify-content-end align-items-center options">
+        <div class="d-flex justify-content-center align-items-center options">
           <b-button v-b-popover.hover="'Edit credit'" class="options-btn options-edit" variant="warning" size="sm" @click="editCredit(data.item)">
             <i class="fas fa-edit text-light"></i>
           </b-button>
@@ -32,54 +32,48 @@
         </div>
       </template>
     </b-table>
-    <b-pagination align="center" size="sm" :total-rows="countCredits" v-model="currentPage" :per-page="perPage">
+    <b-pagination align="center" size="sm" :total-rows="pagination.totalRows" @change="changePage" v-model="pagination.page" :per-page="pagination.perPage">
     </b-pagination>
   </b-container>
 </div>
 </template>
 
 <script>
+import {
+  mapGetters,
+  mapState,
+  mapActions
+} from 'vuex'
+
 export default {
   data() {
     return {
-      fields: [{
-          key: 'name',
-          sortable: true
-        },
-        {
-          key: 'date',
-          sortable: true
-        },
-        {
-          key: 'value',
-          sortable: true
-        },
-        {
-          key: 'operations'
-        }
-      ],
-      credits: [],
-      creditToDelete: {},
-      currentPage: 1,
-      perPage: 10,
-      isBusy: false,
-      countCredits: 0
+      creditToDelete: {}
     }
   },
+  mounted() {
+    const page = this.pagination.page
+    const limit = this.pagination.perPage
+    this.findAllCredits({
+      page,
+      limit
+    })
+  },
+  computed: {
+    ...mapGetters('credit', [
+      'allCredits'
+    ]),
+    ...mapState('credit', [
+      'fields',
+      'pagination'
+    ])
+  },
+  
   methods: {
-    async loadCredits(ctx) {
-      try {
-        let response = await this.$http.get(`/credit?page=${ctx.currentPage}&perpage=${ctx.perPage}`);
-        this.credits = response.data.credits;
-        this.countCredits = response.data.count;
-        return this.credits;
-      } catch (error) {
-        this.$notify({
-          type: 'error',
-          text: 'Can\'t fetch credits!'
-        });
-      }
-    },
+    ...mapActions('credit', [
+      'findAllCredits',
+      'deleteCredit'
+    ]),
     addCredit() {
       this.$router.push({
         name: "newcredit"
@@ -93,24 +87,16 @@ export default {
         }
       })
     },
-    async removeCredit(credit) {
-      try {
-        await this.$http.delete(`/credit/${credit._id}`);
-        this.$refs.table.refresh();
-        this.$notify({
-          type: 'success',
-          text: 'Credit deleted!'
-        });
-      } catch (error) {
-        this.$notify({
-          type: 'error',
-          text: 'Can\'t delete credit'
-        });
-      }
+    changePage(page) {
+      const limit = this.pagination.perPage
+      this.findAllCredits({
+        page,
+        limit
+      })
     },
     modalOk() {
       if (this.creditToDelete)
-        this.removeCredit(this.creditToDelete);
+        this.deleteCredit(this.creditToDelete);
       this.creditToDelete = undefined;
     },
     confirmDelete(credit) {

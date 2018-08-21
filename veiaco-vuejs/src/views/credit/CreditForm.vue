@@ -36,14 +36,17 @@
 </template>
 
 <script>
-import moment from "moment";
+import moment from 'moment';
+import {
+  mapActions
+} from 'vuex'
 
 export default {
   beforeMount() {
-    let id = this.$route.params.id;
+    let id = this.$route.params.id
     if (id) {
-      this.editing = true;
-      this.loadCredit(id);
+      this.editing = true
+      this.loadCredit(id)
     }
   },
   data() {
@@ -54,76 +57,60 @@ export default {
         date: ''
       },
       editing: false,
-      errors: [],
+      errors: []
     }
   },
   computed: {
     title() {
-      return this.editing ? 'Edit Credit' : 'New Credit';
+      return this.editing ? 'Edit Credit' : 'New Credit'
     }
   },
   methods: {
+    ...mapActions('credit', [
+      'createCredit',
+      'updateCredit'
+    ]),
     formatToDateOnly(value, event) {
-      return moment.utc(value).format("YYYY-MM-DD");
+      return moment.utc(value).format("YYYY-MM-DD")
     },
     async loadCredit(id) {
       try {
-        let response = await this.$http.get(`/credit/${id}`);
-        this.form = response.data.credit;
+        let response = await this.$http.get(`/credit/${id}`)
+        this.form = response.data.credit
       } catch (error) {
         this.$notify({
           type: "error",
           text: "There was an error editing credit!"
-        });
+        })
         this.$router.go(-1)
       }
     },
-    async save() {
-      try {
-        this.validateForm();
-        if (this.errors.length > 0)
-          return;
-        let jsonData = JSON.stringify(this.form);
-        if (this.editing) {
-          let response = await this.$http.put(`/credit/${this.$route.params.id}`, jsonData);
-          this.$notify({
-            type: "success",
-            text: "Credit updated!"
-          })
-        } else {
-          let response = await this.$http.post('/credit', jsonData);
-          this.$notify({
-            type: "success",
-            text: "Credit created!"
-          })
-        }
-        this.$router.go(-1);
-      } catch (error) {
-        if (this.editing) {
-          this.$notify({
-            type: "error",
-            text: "There was an error editing credit :("
-          })
-        } else {
-          this.$notify({
-            type: "error",
-            text: "There was an error creating credit :("
-          })
-        }
+    save() {
+      this.validateForm()
+      if (this.errors.length > 0)
+        return
+      if (this.editing) {
+        this.updateCredit({
+          id: this.$route.params.id,
+          debt: this.form
+        })
+      } else {
+        this.createCredit(this.form)
       }
+      this.$router.go(-1)
     },
     cancel() {
       this.$router.go(-1);
     },
     validateForm() {
       this.errors = [];
-      if (this.form.name == "")
-        this.errors.push('Enter a valid name');
+      if (this.form.name == '')
+        this.errors.push('Enter a valid name')
 
-      if (this.form.value == "")
-        this.errors.push('Enter a valid value');
+      if (this.form.value == '')
+        this.errors.push('Enter a valid value')
     }
-  },
+  }
 }
 </script>
 

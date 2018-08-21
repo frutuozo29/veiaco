@@ -50,7 +50,7 @@ import {
 
 export default {
   beforeMount() {
-    let id = this.$route.params.id;
+    let id = this.$route.params.id
     if (id) {
       this.editing = true
       this.loadDebt(id)
@@ -70,7 +70,7 @@ export default {
   },
   computed: {
     title() {
-      return this.editing ? 'Edit debt' : 'New Debt';
+      return this.editing ? 'Edit debt' : 'New Debt'
     }
   },
   methods: {
@@ -79,11 +79,11 @@ export default {
       'updateDebt'
     ]),
     formatToDateOnly(value, event) {
-      return moment.utc(value).format('YYYY-MM-DD');
+      return moment.utc(value).format('YYYY-MM-DD')
     },
     async loadDebt(id) {
       try {
-        let response = await this.$http.get(`/debt/${id}`);
+        let response = await this.$http.get(`/debt/${id}`)
         this.form = response.data.debt;
       } catch (error) {
         this.$notify({
@@ -105,20 +105,20 @@ export default {
       } else {
         this.createDebt(this.form)
       }
-      this.$router.go(-1);
+      this.$router.go(-1)
     },
     cancel() {
-      this.$router.go(-1);
+      this.$router.go(-1)
     },
     validateForm() {
       this.errors = [];
       if (this.form.name == '')
-        this.errors.push('Enter a valid name');
+        this.errors.push('Enter a valid name')
 
       if (this.form.value == '')
-        this.errors.push('Enter a valid value');
+        this.errors.push('Enter a valid value')
     }
-  },
+  }
 }
 </script>
 

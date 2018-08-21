@@ -1,0 +1,3 @@
+export const ALL_CREDITS = 'ALL_CREDITS'
+export const SET_ALL_CREDITS = 'SET_ALL_CREDITS'
+export const SET_PAGINATION = 'SET_PAGINATION'
