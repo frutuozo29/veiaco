@@ -55,7 +55,7 @@ export default {
 }
 
 .dropdown-menu a:focus {
-  background-color: #eeff00 !important;
+  background-color: #ffcc33 !important;
 }
 
 .dropdown-menu a.active {
@@ -63,6 +63,6 @@ export default {
 }
 
 .dropdown-menu a.active:hover {
-  background-color: #eeff00 !important;
+  background-color: #ffcc33 !important;
 }
 </style>
