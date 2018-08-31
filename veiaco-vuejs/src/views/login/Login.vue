@@ -52,53 +52,43 @@
 
 <script>
 import auth from "../../utils/auth";
+import { sendErrorMessage } from "../../utils/notify";
 
 export default {
   data() {
     return {
       form: {
-        username: '',
-        password: ''
+        username: "",
+        password: ""
       }
-    }
+    };
   },
   methods: {
     async logar() {
       try {
-        if (!this.formIsValid())
-          return;
+        if (!this.formIsValid()) return;
 
         let jsonData = JSON.stringify(this.form);
-        let response = await this.$http.post("/auth", jsonData)
+        let response = await this.$http.post("/auth", jsonData);
         auth.login(response.data);
-
       } catch (error) {
-        this.$notify({
-          type: "error",
-          text: "There was an error on login :("
-        })
+        sendErrorMessage("There was an error on login :(");
       }
     },
     formIsValid() {
       if (this.form.username == "") {
-        this.$notify({
-          type: "error",
-          text: "Enter a valid username."
-        })
+        sendErrorMessage("Enter a valid username.");
         return false;
       }
 
       if (this.form.password == "") {
-        this.$notify({
-          type: "error",
-          text: "Enter a valid password."
-        })
+        sendErrorMessage("Enter a valid password.");
         return false;
       }
       return true;
     }
-  },
-}
+  }
+};
 </script>
 
 <style scoped>

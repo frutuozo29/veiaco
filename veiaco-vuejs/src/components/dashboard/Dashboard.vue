@@ -50,7 +50,7 @@
         </b-row>
         <div slot="footer">
           <i class="fas fa-calendar iconCardFooter"></i>
-          <small class="text-muted"> Last month</small>
+          <small class="text-muted"> Current month</small>
         </div>
       </b-card>
     </b-card-group>
@@ -59,6 +59,7 @@
 </template>
 
 <script>
+import { sendErrorMessage } from "../../utils/notify";
 export default {
   name: "dashboard",
   data() {
@@ -83,10 +84,7 @@ export default {
         const response = await this.$http.post("/dashboard", jsonData);
         this.dataDashboard = response.data;
       } catch (error) {
-        this.$notify({
-          type: "error",
-          text: "Can't fecth data dashboard :("
-        });
+        sendErrorMessage("Can't fecth data dashboard :(");
       }
     }
   }

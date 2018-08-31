@@ -36,82 +36,72 @@
 </template>
 
 <script>
-import moment from 'moment';
-import {
-  mapActions
-} from 'vuex'
+import moment from "moment";
+import { mapActions } from "vuex";
+import { sendErrorMessage } from "../../utils/notify";
 
 export default {
   beforeMount() {
-    let id = this.$route.params.id
+    let id = this.$route.params.id;
     if (id) {
-      this.editing = true
-      this.loadCredit(id)
+      this.editing = true;
+      this.loadCredit(id);
     }
   },
   data() {
     return {
       form: {
-        name: '',
+        name: "",
         value: 0,
-        date: ''
+        date: ""
       },
       editing: false,
       errors: []
-    }
+    };
   },
   computed: {
     title() {
-      return this.editing ? 'Edit Credit' : 'New Credit'
+      return this.editing ? "Edit Credit" : "New Credit";
     }
   },
   methods: {
-    ...mapActions('credit', [
-      'createCredit',
-      'updateCredit'
-    ]),
+    ...mapActions("credit", ["createCredit", "updateCredit"]),
     formatToDateOnly(value, event) {
-      return moment.utc(value).format("YYYY-MM-DD")
+      return moment.utc(value).format("YYYY-MM-DD");
     },
     async loadCredit(id) {
       try {
-        let response = await this.$http.get(`/credit/${id}`)
-        this.form = response.data.credit
+        let response = await this.$http.get(`/credit/${id}`);
+        this.form = response.data.credit;
       } catch (error) {
-        this.$notify({
-          type: "error",
-          text: "There was an error editing credit!"
-        })
-        this.$router.go(-1)
+        sendErrorMessage("There was an error editing credit!");
+        this.$router.go(-1);
       }
     },
     save() {
-      this.validateForm()
-      if (this.errors.length > 0)
-        return
+      this.validateForm();
+      if (this.errors.length > 0) return;
       if (this.editing) {
         this.updateCredit({
           id: this.$route.params.id,
           debt: this.form
-        })
+        });
       } else {
-        this.createCredit(this.form)
+        this.createCredit(this.form);
       }
-      this.$router.go(-1)
+      this.$router.go(-1);
     },
     cancel() {
       this.$router.go(-1);
     },
     validateForm() {
       this.errors = [];
-      if (this.form.name == '')
-        this.errors.push('Enter a valid name')
+      if (this.form.name == "") this.errors.push("Enter a valid name");
 
-      if (this.form.value == '')
-        this.errors.push('Enter a valid value')
+      if (this.form.value == "") this.errors.push("Enter a valid value");
     }
   }
-}
+};
 </script>
 
 <style scoped>
