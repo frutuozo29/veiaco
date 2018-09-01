@@ -9,12 +9,12 @@ const server = restify.createServer();
 
 const cors = corsMiddleware({
   origins: ["*"],
-  allowHeaders: ["*", 'authorization']
+  allowHeaders: ["*", "authorization"]
 });
 
 server.use(
   rjwt(config.jwt).unless({
-    path: ["/auth"]
+    path: ["/", "/auth"]
   })
 );
 

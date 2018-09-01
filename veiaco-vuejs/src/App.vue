@@ -2,7 +2,6 @@
 <div id="app">
   <vue-progress-bar>
   </vue-progress-bar>
-  <notifications/>
   <div v-if="loggedIn">
     <MenuBar />
     <div class="container">
@@ -55,9 +54,9 @@ export default {
   data() {
     return {
       loggedIn: auth.loggedIn()
-    }
-  },
-}
+    };
+  }
+};
 </script>
 
 <style>

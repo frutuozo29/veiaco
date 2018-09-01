@@ -67,7 +67,10 @@ export default {
   methods: {
     ...mapActions("credit", ["createCredit", "updateCredit"]),
     formatToDateOnly(value, event) {
-      return moment.utc(value).format("YYYY-MM-DD");
+      return moment
+        .utc(value)
+        .locale("pt-br")
+        .format("YYYY-MM-DD");
     },
     async loadCredit(id) {
       try {

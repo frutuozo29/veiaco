@@ -75,7 +75,10 @@ export default {
   methods: {
     ...mapActions("debt", ["createDebt", "updateDebt"]),
     formatToDateOnly(value, event) {
-      return moment.utc(value).format("YYYY-MM-DD");
+      return moment
+        .utc(value)
+        .locale("pt-br")
+        .format("YYYY-MM-DD");
     },
     async loadDebt(id) {
       try {
