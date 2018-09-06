@@ -1,12 +1,23 @@
 const mongoose = require("mongoose");
 const UserModel = require("../models/user");
 
-module.exports.authenticate = (user, password) => {
-  return Promise.resolve({
-    _id: "827eh8123hnfwienof",
-    user: user,
-    password: password
-  });
+module.exports.authenticate = async (user, password) => {
+  try {
+    userbd = await this.readByUsername(user);
+    if (userbd) {
+      if (userbd[0].password !== password) {
+        throw "Username or password is invalid";
+      }
+    }
+
+    return Promise.resolve({
+      _id: userbd._id,
+      user: userbd.username,
+      password: userbd.password
+    });
+  } catch (error) {
+    throw error;
+  }
 };
 
 module.exports.create = async user => {
@@ -42,6 +53,16 @@ module.exports.read = async (page, perPage) => {
 module.exports.readById = async id => {
   try {
     const user = await UserModel.findById(id);
+    return user;
+  } catch (err) {
+    throw err;
+  }
+};
+
+module.exports.readByUsername = async username => {
+  try {
+    let query = { username: username };
+    const user = await UserModel.find(query);
     return user;
   } catch (err) {
     throw err;
