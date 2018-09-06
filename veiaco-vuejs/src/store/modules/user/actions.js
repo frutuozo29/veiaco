@@ -26,7 +26,9 @@ export default {
   },
   async updateUser({ commit }, payload) {
     try {
+      console.log(payload);
       const jsonData = JSON.stringify(payload.user);
+      console.log(jsonData);
       await api.put(`/user/${payload.id}`, jsonData);
       sendSuccessMessage("User updated!");
     } catch (error) {

@@ -15,7 +15,7 @@
               <i class="fas fa-user text-light"></i>
             </b-col>
             <b-col cols="10">
-              <b-form-input v-model="form.username" cols="6" class="sm-4" type="text" placeholder="Username">
+              <b-form-input label="Username" v-model="form.username" cols="6" class="sm-4" type="text" placeholder="Username">
               </b-form-input>
             </b-col>
           </b-row>
@@ -26,7 +26,7 @@
               <i class="fas fa-lock text-light"></i>
             </b-col>
             <b-col cols="10">
-              <b-form-input v-model="form.password" class="sm-8" type="password" placeholder="Password">
+              <b-form-input label="Password" v-model="form.password" class="sm-8" type="password" placeholder="Password">
               </b-form-input>
             </b-col>
           </b-row>
