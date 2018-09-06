@@ -17,14 +17,20 @@
         </b-form-group>
       </b-col>
       <b-col md="4">
-        <b-form-group label="Date:" label-for="dateinput">
-          <b-form-input id="dateinput" type="date" v-model="form.date" :formatter="formatToDateOnly">
+        <b-form-group label="Email:" label-for="emailinput">
+          <b-form-input id="emailinput" type="text" v-model="form.email" required placeholder="Enter email">
           </b-form-input>
         </b-form-group>
       </b-col>
       <b-col md="4">
-        <b-form-group label="Value:" label-for="valueinput">
-          <b-form-input id="valueinput" type="number" v-model="form.value" required placeholder="Enter value">
+        <b-form-group label="Username:" label-for="usernameinput">
+          <b-form-input id="usernameinput" type="text" v-model="form.username" required placeholder="Enter username">
+          </b-form-input>
+        </b-form-group>
+      </b-col>
+      <b-col md="4">
+        <b-form-group label="Password:" label-for="passwordinput">
+          <b-form-input id="passwordinput" type="password" v-model="form.password" required placeholder="Enter password">
           </b-form-input>
         </b-form-group>
       </b-col>
@@ -45,15 +51,16 @@ export default {
     let id = this.$route.params.id;
     if (id) {
       this.editing = true;
-      this.loadCredit(id);
+      this.loadUser(id);
     }
   },
   data() {
     return {
       form: {
         name: "",
-        value: 0,
-        date: ""
+        email: "",
+        username: "",
+        password: ""
       },
       editing: false,
       errors: []
@@ -61,23 +68,23 @@ export default {
   },
   computed: {
     title() {
-      return this.editing ? "Edit Credit" : "New Credit";
+      return this.editing ? "Edit User" : "New User";
     }
   },
   methods: {
-    ...mapActions("credit", ["createCredit", "updateCredit"]),
+    ...mapActions("user", ["createUser", "updateUser"]),
     formatToDateOnly(value, event) {
       return moment
         .utc(value)
         .locale("pt-br")
         .format("YYYY-MM-DD");
     },
-    async loadCredit(id) {
+    async loadUser(id) {
       try {
-        let response = await this.$http.get(`/credit/${id}`);
-        this.form = response.data.credit;
+        let response = await this.$http.get(`/user/${id}`);
+        this.form = response.data;
       } catch (error) {
-        sendErrorMessage("There was an error editing credit!");
+        sendErrorMessage("There was an error editing user!");
         this.$router.go(-1);
       }
     },
@@ -85,12 +92,12 @@ export default {
       this.validateForm();
       if (this.errors.length > 0) return;
       if (this.editing) {
-        this.updateCredit({
+        this.updateUser({
           id: this.$route.params.id,
-          debt: this.form
+          user: this.form
         });
       } else {
-        this.createCredit(this.form);
+        this.createUser(this.form);
       }
       this.$router.go(-1);
     },
@@ -99,9 +106,6 @@ export default {
     },
     validateForm() {
       this.errors = [];
-      if (this.form.name == "") this.errors.push("Enter a valid name");
-
-      if (this.form.value == "") this.errors.push("Enter a valid value");
     }
   }
 };

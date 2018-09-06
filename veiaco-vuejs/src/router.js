@@ -1,205 +1,269 @@
-import Vue from 'vue'
-import Router from 'vue-router'
-import auth from './utils/auth'
-import Home from './views/home/Home.vue'
-import Login from './views/login/Login.vue'
-import Debt from './views/debt/Debt.vue'
-import DebtForm from './views/debt/DebtForm.vue'
-import Credit from './views/credit/Credit.vue'
-import CreditForm from './views/credit/CreditForm.vue'
+import Vue from "vue";
+import Router from "vue-router";
+import auth from "./utils/auth";
+import Home from "./views/home/Home.vue";
+import Login from "./views/login/Login.vue";
+import Debt from "./views/debt/Debt.vue";
+import DebtForm from "./views/debt/DebtForm.vue";
+import User from "./views/user/User.vue";
+import UserForm from "./views/user/UserForm.vue";
+import Credit from "./views/credit/Credit.vue";
+import CreditForm from "./views/credit/CreditForm.vue";
 
-Vue.use(Router)
+Vue.use(Router);
 
-function requireAuth (to, from, next) {
+function requireAuth(to, from, next) {
   if (!auth.loggedIn()) {
     next({
-      path: '/login',
+      path: "/login",
       query: { redirect: to.fullPath }
-    })
+    });
   } else {
-    next()
+    next();
   }
 }
 
-function redirectHome (to, from, next) {
+function redirectHome(to, from, next) {
   if (auth.loggedIn()) {
     next({
-      path: '/'
-    })
+      path: "/"
+    });
   } else {
-    next()
+    next();
   }
 }
 
 const router = new Router({
-  mode: 'history',
+  mode: "history",
   routes: [
     {
-      path: '/',
-      name: 'home',
+      path: "/",
+      name: "home",
       component: Home,
       beforeEnter: requireAuth,
       meta: {
         breadcrumb: [
           {
-            text: 'Dashboard',
-            to: { name: 'home' }
+            text: "Dashboard",
+            to: { name: "home" }
           }
         ]
       }
     },
     {
-      path: '/login',
-      name: 'login',
+      path: "/login",
+      name: "login",
       component: Login,
       beforeEnter: redirectHome
     },
     {
-      path: '/debts',
-      name: 'debts',
+      path: "/debts",
+      name: "debts",
       component: Debt,
       beforeEnter: requireAuth,
       meta: {
         breadcrumb: [
           {
-            text: 'Dashboard',
-            to: { name: 'home' }
+            text: "Dashboard",
+            to: { name: "home" }
           },
           {
-            text: 'Debts',
-            to: { name: 'debts' }
+            text: "Debts",
+            to: { name: "debts" }
           }
         ]
       }
     },
     {
-      path: '/debt/new',
-      name: 'newdebt',
+      path: "/debt/new",
+      name: "newdebt",
       component: DebtForm,
       beforeEnter: requireAuth,
       meta: {
         breadcrumb: [
           {
-            text: 'Dashboard',
-            to: { name: 'home' }
+            text: "Dashboard",
+            to: { name: "home" }
           },
           {
-            text: 'Debts',
-            to: { name: 'debts' }
+            text: "Debts",
+            to: { name: "debts" }
           },
           {
-            text: 'New Debt',
-            to: { name: 'newdebt' }
+            text: "New Debt",
+            to: { name: "newdebt" }
           }
         ]
       }
     },
     {
-      path: '/debt/edit/:id',
-      name: 'editdebt',
+      path: "/debt/edit/:id",
+      name: "editdebt",
       component: DebtForm,
       beforeEnter: requireAuth,
       meta: {
         breadcrumb: [
           {
-            text: 'Dashboard',
-            to: { name: 'home' }
+            text: "Dashboard",
+            to: { name: "home" }
           },
           {
-            text: 'Debts',
-            to: { name: 'debts' }
+            text: "Debts",
+            to: { name: "debts" }
           },
           {
-            text: 'Edit Debt',
-            to: { name: 'editdebt' }
+            text: "Edit Debt",
+            to: { name: "editdebt" }
           }
         ]
       }
     },
     {
-      path: '/credits',
-      name: 'credits',
+      path: "/credits",
+      name: "credits",
       component: Credit,
       beforeEnter: requireAuth,
       meta: {
         breadcrumb: [
           {
-            text: 'Dashboard',
-            to: { name: 'home' }
+            text: "Dashboard",
+            to: { name: "home" }
           },
           {
-            text: 'Credits',
-            to: { name: 'credits' }
+            text: "Credits",
+            to: { name: "credits" }
           }
         ]
       }
     },
     {
-      path: '/credits/new',
-      name: 'newcredit',
+      path: "/credits/new",
+      name: "newcredit",
       component: CreditForm,
       beforeEnter: requireAuth,
       meta: {
         breadcrumb: [
           {
-            text: 'Dashboard',
-            to: { name: 'home' }
+            text: "Dashboard",
+            to: { name: "home" }
           },
           {
-            text: 'Credits',
-            to: { name: 'credits' }
+            text: "Credits",
+            to: { name: "credits" }
           },
           {
-            text: 'New Credit',
-            to: { name: 'newcredit' }
+            text: "New Credit",
+            to: { name: "newcredit" }
           }
         ]
       }
     },
     {
-      path: '/credits/edit/:id',
-      name: 'editcredit',
+      path: "/credits/edit/:id",
+      name: "editcredit",
       component: CreditForm,
       beforeEnter: requireAuth,
       meta: {
         breadcrumb: [
           {
-            text: 'Dashboard',
-            to: { name: 'home' }
+            text: "Dashboard",
+            to: { name: "home" }
           },
           {
-            text: 'Credits',
-            to: { name: 'credits' }
+            text: "Credits",
+            to: { name: "credits" }
           },
           {
-            text: 'Edit Credit',
-            to: { name: 'editcredit' }
+            text: "Edit Credit",
+            to: { name: "editcredit" }
           }
         ]
       }
     },
     {
-      path: '/logout',
-      beforeEnter (to, from, next) {
-        auth.logout()
-        next('/login')
+      path: "/users",
+      name: "users",
+      component: User,
+      beforeEnter: requireAuth,
+      meta: {
+        breadcrumb: [
+          {
+            text: "Dashboard",
+            to: { name: "home" }
+          },
+          {
+            text: "Users",
+            to: { name: "users" }
+          }
+        ]
+      }
+    },
+    {
+      path: "/user/new",
+      name: "newuser",
+      component: UserForm,
+      beforeEnter: requireAuth,
+      meta: {
+        breadcrumb: [
+          {
+            text: "Dashboard",
+            to: { name: "home" }
+          },
+          {
+            text: "Users",
+            to: { name: "users" }
+          },
+          {
+            text: "New User",
+            to: { name: "newuser" }
+          }
+        ]
+      }
+    },
+    {
+      path: "/user/edit/:id",
+      name: "edituser",
+      component: UserForm,
+      beforeEnter: requireAuth,
+      meta: {
+        breadcrumb: [
+          {
+            text: "Dashboard",
+            to: { name: "home" }
+          },
+          {
+            text: "Users",
+            to: { name: "users" }
+          },
+          {
+            text: "Edit User",
+            to: { name: "edituser" }
+          }
+        ]
+      }
+    },
+    {
+      path: "/logout",
+      beforeEnter(to, from, next) {
+        auth.logout();
+        next("/login");
       }
     }
   ],
   meta: {
     progress: {
       func: [
-        { call: 'color', modifier: 'temp', argument: '#ffb000' },
-        { call: 'fail', modifier: 'temp', argument: '#6e0000' },
-        { call: 'location', modifier: 'temp', argument: 'top' },
+        { call: "color", modifier: "temp", argument: "#ffb000" },
+        { call: "fail", modifier: "temp", argument: "#6e0000" },
+        { call: "location", modifier: "temp", argument: "top" },
         {
-          call: 'transition',
-          modifier: 'temp',
-          argument: { speed: '1.5s', opacity: '0.6s', termination: 400 }
+          call: "transition",
+          modifier: "temp",
+          argument: { speed: "1.5s", opacity: "0.6s", termination: 400 }
         }
       ]
     }
   }
-})
+});
 
-export default router
+export default router;

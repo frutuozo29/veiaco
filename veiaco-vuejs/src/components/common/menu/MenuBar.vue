@@ -10,6 +10,7 @@
         <b-nav-item-dropdown text="Registers" right>
           <b-dropdown-item to="/credits">Credits</b-dropdown-item>
           <b-dropdown-item to="/debts">Debts</b-dropdown-item>
+          <b-dropdown-item to="/users">Users</b-dropdown-item>
         </b-nav-item-dropdown>
         <b-nav-item>Moviments</b-nav-item>
         <b-nav-item>Reports</b-nav-item>
