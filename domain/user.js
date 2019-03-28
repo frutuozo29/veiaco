@@ -3,9 +3,9 @@ const UserModel = require("../models/user");
 
 module.exports.authenticate = async (user, password) => {
   try {
-    if (user == 'admin') {
+    if (user == "admin") {
       return Promise.resolve({
-        _id: 'dbasjhd7384723bndas89',
+        _id: "dbasjhd7384723bndas89",
         user: user,
         password: password
       });
