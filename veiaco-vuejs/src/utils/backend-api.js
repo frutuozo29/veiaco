@@ -4,7 +4,7 @@ import auth from './auth'
 const BASE_URL =
   process.env.NODE_ENV === 'development'
     ? 'http://localhost:1000'
-    : 'https://veiaco-api.herokuapp.com'
+    : 'https://veiaco.herokuapp.com'
 
 const instance = axios.create({
   baseURL: BASE_URL,
